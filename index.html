@@ -12,7 +12,7 @@
      false = la web se ve normal.
      Cambiá la palabra de abajo y volvé a subir el archivo. -->
     <script>
-      var MANTENIMIENTO = true;
+      var MANTENIMIENTO = false;
       if (MANTENIMIENTO) document.documentElement.classList.add("mant");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,6 +101,10 @@
       }
       h2 {
         font-size: clamp(2rem, 5vw, 3.2rem);
+      }
+      a{
+        color:#c9b79c;
+        font-weight: 600;
       }
       p {
         margin: 0 0 1em;
@@ -307,6 +311,29 @@
         box-shadow: 0 10px 26px -16px rgba(0, 0, 0, 0.45);
         display: flex;
         flex-direction: column;
+      }
+      /* PRODUCTO EN STOCK: borde dorado, sombra más fuerte y cintita "Listo para retirar" en la esquina de la foto. */
+      .card.stock {
+        outline: 2px solid var(--dorado);
+        outline-offset: -2px;
+        box-shadow: 0 16px 34px -14px rgba(184, 146, 74, 0.7);
+      }
+      .badge {
+        position: absolute;
+        top: 14px;
+        left: -6px;
+        z-index: 2;
+        background: var(--dorado);
+        color: #1b1412;
+        font: 500 0.85rem/1 var(--sans);
+        padding: 9px 16px 9px 14px;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      /* Talle y color FIJOS de un producto en stock (sin selectores). */
+      .fx {
+        font-weight: 500;
+        color: var(--ac);
       }
       /* CARRUSEL de fotos: se desliza con el dedo o con las flechas ‹ ›. */
       .cw {
@@ -621,6 +648,7 @@
         ></a>
         <ul>
           <li class="h"><a href="#colecciones">Colecciones</a></li>
+          <li class="h" id="navstock" hidden><a href="#stock">En stock</a></li>
           <li class="h"><a href="#tienda">Tienda</a></li>
           <li class="h"><a href="#como">Cómo pedir</a></li>
           <li>
@@ -655,6 +683,19 @@
         </div>
       </div>
     </header>
+
+    <!-- EN STOCK: productos que ya tenés hechos. Se llena sola desde la lista STOCK del script (sección 7b)
+         y se OCULTA sola (junto con su link del menú) si esa lista está vacía. Editá los textos si querés. -->
+    <section id="stock" hidden>
+      <div class="w">
+        <h2>En stock</h2>
+        <p style="margin-top: 12px">
+          Lo que ya está hecho y listo para retirar. Elegí, agregalo al carrito
+          y coordinamos el retiro.
+        </p>
+        <div class="grid" id="stockgrid" style="margin-top: 24px"></div>
+      </div>
+    </section>
 
     <!-- TIENDA. Las tarjetas se generan solas desde la lista de productos P del script. Para agregar/quitar productos NO tocás este HTML. -->
     <section class="alt" id="tienda">
@@ -703,7 +744,7 @@
       </div>
     </section>
 
-    <!-- PIE: llamado final + botón a Instagram. Cambiá el usuario si no es jesiestudio_. -->
+    <!-- PIE: llamado final + botón a Instagram.  -->
     <footer>
       <div class="w">
         <h2>¿Qué te gusta?</h2>
@@ -784,10 +825,10 @@
       //    ALIAS="jesi.estudio"  CBU="0000..."  TITULAR="Nombre Apellido"
       //    WHATSAPP = tu número con código de país, sin + ni espacios (ej. "5491112345678"). Vacío = el botón no aparece.
       /* Datos de transferencia: completalos y se muestran en el carrito. WhatsApp: número con código de país, sin + (ej. 5491112345678). */
-      var ALIAS = "",
-        CBU = "",
-        TITULAR = "",
-        WHATSAPP = "";
+      var ALIAS = "jesiacostamp",
+        CBU = "0000003100037828955296",
+        TITULAR = "Jesica Daiana Acosta",
+        WHATSAPP = "541173639842";
       // 2) UTILIDADES: fmt() da formato de precio ($12.000), $() es un atajo para buscar elementos.
       const fmt = (n) => "$" + n.toLocaleString("es-AR"),
         $ = (s) => document.querySelector(s);
@@ -816,19 +857,13 @@
       const C16 = [
         ["Violeta", "#7A3E98"],
         ["Azul noche", "#12213A"],
-        ["Morado", "#4B2A78"],
         ["Azul francia", "#2A6FD0"],
         ["Celeste", "#9DB7E6"],
-        ["Verde", "#12935A"],
         ["Rosa bebé", "#F2C3D6"],
-        ["Fucsia", "#E0267A"],
-        ["Naranja", "#F26A1B"],
-        ["Amarillo", "#F5B01A"],
         ["Bordó", "#7B1426"],
         ["Marrón", "#5A3425"],
         ["Negro", "#151515"],
         ["Crudo", "#F1EBDD"],
-        ["Grafito", "#3C464D"],
         ["Blanco", "#FFFFFF"],
       ];
       // 5) TABLAS DE TALLES (cm). l = largo, a = ancho, de talle 1 al 5. Se usan con t:"uni" / "muj" / "buzo" en una variante.
@@ -872,11 +907,20 @@
       // Buzos y camperas: talles S–XL con 6 colores. bz(nombre, precio, tablaOpcional) arma la variante.
       const SX = ["S", "M", "L", "XL"],
         bz = (n, p, t) => ({ n, p, s: SX, c: C6, t });
+      // FOTOS DE PRODUCTOS (el carrusel de cada tarjeta):
+      //  1. Creá una carpeta llamada  fotos  al lado de este index.html.
+      //  2. Guardá ahí las fotos con el nombre del producto + número:  remera-jane-austen-1.jpg, remera-jane-austen-2.jpg ...
+      //  3. En el producto, im: fotos("remera-jane-austen")  las toma solas (por defecto busca 3 fotos .jpg).
+      //     Para otra cantidad: fotos("nombre", 5). Si una foto no existe, simplemente no aparece (no se rompe nada).
+      //     Si usás otro formato (png, webp) o nombres distintos, listalas a mano: im: ["fotos/a.png", "fotos/b.webp"]
+      //  Tip: fotos cuadradas, de 1000x1000 px aprox., livianas (menos de 300 KB cada una).
+      const fotos = (s, n = 3) =>
+        Array.from({ length: n }, (_, i) => `fotos/${s}-${i + 1}.jpg`);
       // 7) PRODUCTOS. Cada producto es un bloque entre llaves { }, separados por coma.
       //    CAMPOS:
       //      n:  nombre            g: ["Colecciones"] donde aparece     d: descripción
       //      v:  [variantes]       (modelos/tamaños/precios; si hay más de una, el cliente elige)
-      //      im: ["fotos/a.jpg","fotos/b.jpg"]  fotos para el carrusel (opcional; sin im: se ven fotos de ejemplo)
+      //      im: fotos("slug")  → usa fotos/slug-1.jpg, slug-2.jpg, slug-3.jpg (ver FOTOS más arriba). O a mano: im:["fotos/a.jpg","fotos/b.png"]
       //    PARA AGREGAR: copiá un bloque, pegalo antes del ] final y cambiá los datos.
       //    PARA QUITAR: borrá el bloque completo (desde { hasta },).
       //    PARA OCULTAR SIN BORRAR: poné // al principio de cada línea del bloque.
@@ -886,18 +930,21 @@
       const P = [
         {
           n: "Remera Jane Austen Reading Club",
+          im: fotos("remera-jane-austen"),
           g: ["Literatura"],
           d: "Libros apilados con moño bordó, para lectoras con demasiados favoritos. Algodón peinado, con una referencia chiquita en la manga.",
           v: [UNI, MUJ],
         },
         {
           n: "Remera Taylor Swift",
+          im: fotos("remera-taylor-swift"),
           g: ["Música"],
           d: "Collage de fotos y una frase para cantar a los gritos. Algodón peinado, con mis iniciales bordadas en la manga.",
           v: [UNI, MUJ],
         },
         {
           n: "Buzo Stars Hollow Book Club",
+          im: fotos("buzo-stars-hollow"),
           g: ["Series"],
           d: "Para quienes todavía quieren mudarse a Stars Hollow. Buzo friza con taza de café en la manga.",
           v: [
@@ -909,12 +956,14 @@
         },
         {
           n: "Campera canguro con tu universo",
+          im: fotos("campera-canguro"),
           g: ["Tu universo"],
           d: "Campera canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
           v: [bz("Canguro friza clásica", 38000)],
         },
         {
           n: "Tote Books, Coffee & Music",
+          im: fotos("tote-books-coffee-music"),
           g: ["Literatura", "Nostalgia"],
           d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí el tamaño de la bolsa y de la estampa.",
           v: [
@@ -926,34 +975,61 @@
         },
         {
           n: "Taza Just a Girl Who Loves Books",
+          im: fotos("taza-just-a-girl"),
           g: ["Literatura"],
           d: "Taza de cerámica con frase en bordó y un moño.",
           v: [{ n: "Cerámica", p: 12000 }],
         },
         {
           n: "Taza Luke's",
+          im: fotos("taza-lukes"),
           g: ["Series"],
           d: "Taza de cerámica para el café número siete del día.",
           v: [{ n: "Cerámica", p: 12000 }],
         },
         {
-          n: "Cuaderno y agenda tapa dura",
+          n: "Cuaderno",
+          im: fotos("cuaderno"),
           g: ["Literatura", "Arte"],
-          d: "Cuadernos y agendas con tapa dura diseñada por mí, anillados y con elástico.",
+          d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. Elegí el tamaño.",
           v: [
-            { n: "Cuaderno A5", p: 15420 },
-            { n: "Cuaderno A4", p: 19900 },
-            { n: "Agenda A5", p: 14820 },
+            { n: "A5", p: 15420 },
+            { n: "A4", p: 19900 },
           ],
         },
         {
+          n: "Agenda 2026",
+          im: fotos("agenda-2026"),
+          g: ["Literatura", "Arte"],
+          d: "Agenda 2026 de tapa dura diseñada por mí, anillada y con elástico.",
+          v: [{ n: "A5", p: 14820 }],
+        },
+        {
+          n: "Agenda emprendedora",
+          im: fotos("agenda-emprendedora"),
+          g: ["Tu universo"],
+          d: "Agenda emprendedora de tapa dura diseñada por mí.",
+          // ↓ Todavía sin precio: se muestra "A consultar". Para venderla desde la web agregá  p: 0000  (tu precio).
+          v: [{ n: "Agenda" }],
+        },
+        {
+          n: "Agenda universitaria",
+          im: fotos("agenda-universitaria"),
+          g: ["Tu universo"],
+          d: "Agenda universitaria de tapa dura diseñada por mí.",
+          // ↓ Todavía sin precio: se muestra "A consultar". Para venderla desde la web agregá  p: 0000  (tu precio).
+          v: [{ n: "Agenda" }],
+        },
+        {
           n: "Señaladores One More Chapter",
+          im: fotos("senaladores"),
           g: ["Literatura"],
           d: "Señaladores fotográficos con moño. Cada pack trae 5.",
           v: [{ n: "Pack x5", p: 1225 }],
         },
         {
           n: "Stickers de vinilo",
+          im: fotos("stickers"),
           g: ["Nostalgia", "Tu universo"],
           d: "Stickers de vinilo autoadhesivo cortados, de 5 cm.",
           v: [
@@ -964,9 +1040,33 @@
         },
         {
           n: "Planchas DTF UV",
+          im: fotos("planchas-dtf-uv"),
           g: ["Tu universo"],
           d: "Planchas de diseños para pegar en lo que quieras. Contame qué necesitás y te paso el presupuesto.",
           v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
+        },
+      ];
+      // 7b) PRODUCTOS EN STOCK: lo que tenés hecho y listo para entregar. Puede ser CUALQUIER producto.
+      //     Se escribe igual que los de arriba (n, g, d, im, v). La diferencia: acá cargás solo lo que realmente tenés,
+      //     por ejemplo un solo talle y color. Acá NO se eligen: el producto sale resaltado, con la cintita "Listo para retirar",
+      //     y muestra el talle y color fijos que cargues con  s:"M"  y  c:"Negro"  (texto simple). Sin s ni c, no muestra talle/color.
+      //     En el carrito y en el mensaje del pedido aparece marcado "en stock" para que lo distingas de lo que hay que producir.
+      //     Si la lista está vacía [], la sección "En stock" y su link del menú se ocultan solos.
+      //     EJEMPLO (sacale las // para activarlo):
+      //       {
+      //         n: "Remera Taylor Swift",
+      //         im: fotos("stock-remera-taylor"),
+      //         g: [],
+      //         d: "Última unidad, ya lista para enviar.",
+      //         v: [{ n: "Unisex", p: 21000, s: "M", c: "Negro", t: "uni" }],
+      //       },
+      //     Para sacar un producto cuando se vende: borrá su bloque (o comentalo con //).
+      const STOCK = [
+        {
+          n: "Canguro rústico Malvinas",
+          im: ["img/stock/malvinas.jpg", "img/stock/remera-taylor-2.jpg"],
+          d: "Última unidad, ya lista para enviar.",
+          v: [{ n: "Unisex", p: 18000, s: "L", c: "Azul marino"}],
         },
       ];
       // 8) FOTOS DE EJEMPLO: genera una imagen provisoria. Se usa solo si el producto no tiene im:[...].
@@ -996,13 +1096,13 @@
           ? cart
               .map(
                 (x, i) =>
-                  `<div class="it"><b>${x.n}</b><span>${fmt(x.p * x.q)}</span><small>${[x.v, x.s && "Talle " + x.s, x.c && "Color " + x.c].filter(Boolean).join(" · ")} · ${fmt(x.p)} c/u</small><span class="q"><button type="button" data-a="-" data-i="${i}" aria-label="Quitar uno">−</button> ${x.q} <button type="button" data-a="+" data-i="${i}" aria-label="Sumar uno">+</button></span></div>`,
+                  `<div class="it"><b>${x.n}${x.st ? " (en stock)" : ""}</b><span>${fmt(x.p * x.q)}</span><small>${[x.v, x.s && "Talle " + x.s, x.c && "Color " + x.c].filter(Boolean).join(" · ")} · ${fmt(x.p)} c/u</small><span class="q"><button type="button" data-a="-" data-i="${i}" aria-label="Quitar uno">−</button> ${x.q} <button type="button" data-a="+" data-i="${i}" aria-label="Sumar uno">+</button></span></div>`,
               )
               .join("")
           : "<p>Tu carrito está vacío.</p>";
         const L = cart.map(
           (x) =>
-            `• ${x.q} x ${x.n} (${[x.v, x.s && "talle " + x.s, x.c && "color " + x.c].filter(Boolean).join(", ")}) = ${fmt(x.p * x.q)}`,
+            `• ${x.q} x ${x.n}${x.st ? " [EN STOCK]" : ""} (${[x.v, x.s && "talle " + x.s, x.c && "color " + x.c].filter(Boolean).join(", ")}) = ${fmt(x.p * x.q)}`,
         );
         const o = `Hola Jesi, quiero hacer este pedido:\n${L.join("\n")}\nTotal: ${fmt(total())} (envío a coordinar)${$("#nt").value ? "\nComentarios: " + $("#nt").value : ""}\nPago por transferencia, te mando el comprobante.`;
         $("#ord").value = cart.length ? o : "";
@@ -1053,15 +1153,24 @@
           `<h3>${t.t}</h3><table><tr><th>Talle</th>${[1, 2, 3, 4, 5].map((i) => `<th>${i}</th>`).join("")}</tr><tr><th>Largo</th>${t.l.map((x) => `<td>${x}</td>`).join("")}</tr><tr><th>Ancho</th>${t.a.map((x) => `<td>${x}</td>`).join("")}</tr></table><small>Medidas en cm, talles 1 al 5. ${t.n} Si tu talle no está en la tabla, escribime.</small><p></p>`;
         $("#tb").showModal();
       }
+      // Si una foto no existe (todavía no la subiste), se saca del carrusel. Si no queda ninguna, se muestra una imagen de ejemplo.
+      function noFoto(img) {
+        const c = img.parentNode,
+          n = img.dataset.n;
+        img.remove();
+        if (!c.children.length)
+          c.innerHTML = `<img src="${ph(0, n)}" alt="${n}">`;
+      }
       // 10) TARJETA DE PRODUCTO: carrusel, descripción, selectores de modelo/talle/color, precio y botón.
       //     Valida que elijan talle y color antes de agregar. Si la variante no tiene precio, el botón lleva a Instagram.
-      function card(p) {
+      function card(p, st) {
+        // st = true cuando es un producto de la sección "En stock"
         const el = document.createElement("article");
-        el.className = "card";
+        el.className = st ? "card stock" : "card"; // los de stock llevan la clase "stock" (resaltados)
         let vi = 0,
           sz = "",
           co = "";
-        el.innerHTML = `<div class="cw"><div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3>${p.n}</h3><p>${p.d}</p><div class="opt"></div></div>`;
+        el.innerHTML = `<div class="cw">${st ? '<span class="badge">Listo para retirar</span>' : ""}<div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" data-n="${p.n}" onerror="noFoto(this)" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3>${p.n}</h3><p>${p.d}</p><div class="opt"></div></div>`;
         const car = el.querySelector(".car"),
           o = el.querySelector(".opt");
         el.querySelector(".pv").onclick = () =>
@@ -1070,16 +1179,24 @@
           car.scrollBy({ left: car.clientWidth, behavior: "smooth" });
         function draw() {
           const v = p.v[vi];
+          // En stock el talle y el color son FIJOS: se toman de la variante y no se le pregunta nada al cliente.
+          if (st) {
+            sz = v.s ? (Array.isArray(v.s) ? v.s[0] : v.s) : "";
+            co = v.c ? (Array.isArray(v.c) ? v.c[0][0] : v.c) : "";
+          }
           o.style.cssText =
             "display:flex;flex-direction:column;gap:10px;flex:1";
           o.innerHTML =
             (p.v.length > 1
               ? `<label>Modelo<select class="vs">${p.v.map((x, i) => `<option value="${i}"${i == vi ? " selected" : ""}>${x.n}</option>`).join("")}</select></label>`
               : "") +
-            (v.s
+            (st && (sz || co)
+              ? `<div class="fx">${[sz && "Talle " + sz, co && "Color " + co].filter(Boolean).join(" · ")}</div>`
+              : "") +
+            (!st && v.s
               ? `<label>Talle<select class="ss"><option value="">Elegí tu talle</option>${v.s.map((x) => `<option>${x}</option>`).join("")}</select></label><small>Talles ${v.s[0]} al ${v.s[v.s.length - 1]}.</small>`
               : "") +
-            (v.c
+            (!st && v.c
               ? `<div class="cl" role="group" aria-label="Color">${v.c.map(([n, h]) => `<button type="button" class="sw" title="${n}" aria-label="${n}" data-n="${n}" style="background:${h}"></button>`).join("")}</div><small class="cn">Color: elegí uno</small>`
               : "") +
             (v.nota ? `<small>${v.nota}</small>` : "") +
@@ -1124,7 +1241,7 @@
               return;
             }
             e.textContent = "";
-            const k = [p.n, v.n, sz, co].join("|"),
+            const k = [p.n, v.n, sz, co, st ? "S" : ""].join("|"),
               it = cart.find((x) => x.k == k);
             it
               ? it.q++
@@ -1136,6 +1253,7 @@
                   c: co,
                   p: v.p,
                   q: 1,
+                  st: !!st,
                 });
             paint();
             cartOpen(true);
@@ -1152,7 +1270,7 @@
           .querySelectorAll(".tag")
           .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t == t));
         const l = P.filter((p) => !t || p.g.includes(t));
-        $("#grid").replaceChildren(...l.map(card));
+        $("#grid").replaceChildren(...l.map((p) => card(p)));
         if (!l.length) {
           $("#grid").innerHTML =
             '<p class="vacio">Esta colección todavía está en camino. Si querés algo de este universo, escribime y lo diseñamos.</p>';
@@ -1180,6 +1298,12 @@
           $("#tienda").scrollIntoView();
         }
       };
+      // 13) EN STOCK: si hay productos en STOCK, dibuja la sección y muestra el link del menú.
+      if (STOCK.length) {
+        $("#stockgrid").replaceChildren(...STOCK.map((p) => card(p, true)));
+        $("#stock").hidden = false;
+        $("#navstock").hidden = false;
+      }
       show("");
       paint();
     </script>
