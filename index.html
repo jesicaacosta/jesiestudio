@@ -102,8 +102,8 @@
       h2 {
         font-size: clamp(2rem, 5vw, 3.2rem);
       }
-      a{
-        color:#c9b79c;
+      a {
+        color: #c9b79c;
         font-weight: 600;
       }
       p {
@@ -318,7 +318,8 @@
           text-align: left;
           font-size: 1rem;
           padding: 13px 8px 13px 16px;
-          border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+          border-bottom: 1px solid
+            color-mix(in srgb, var(--fg) 12%, transparent);
         }
         .sn[aria-pressed="true"] {
           background: color-mix(in srgb, var(--ac) 12%, transparent);
@@ -811,7 +812,15 @@
           <li class="h"><a href="#como">Cómo pedir</a></li>
           <!-- Solo celular: botón "Tienda" que abre/cierra el menú de categorías (reemplaza al link "Tienda") -->
           <li class="m">
-            <button class="btn o" id="tm" type="button" aria-expanded="false" aria-controls="subnav">Tienda</button>
+            <button
+              class="btn o"
+              id="tm"
+              type="button"
+              aria-expanded="false"
+              aria-controls="subnav"
+            >
+              Tienda
+            </button>
           </li>
           <li>
             <button class="btn" id="cb" type="button">
@@ -880,7 +889,12 @@
         <p id="tipodesc" style="margin: 0 0 20px"></p>
         <div class="grid" id="grid"></div>
         <!-- Páginas: se arma sola; aparece solo si hay más productos de los que entran en una página. -->
-        <div class="pager" id="pager" role="navigation" aria-label="Páginas de la tienda"></div>
+        <div
+          class="pager"
+          id="pager"
+          role="navigation"
+          aria-label="Páginas de la tienda"
+        ></div>
       </div>
     </section>
 
@@ -1019,19 +1033,42 @@
       //     "servicios" y "contacto" son especiales: no muestran productos sino un panel de texto (ver SERVICIOS más abajo).
       const IG = "https://www.instagram.com/jesiestudio_";
       const TIPOS = [
-        { id: "indumentaria", t: "Indumentaria", d: "Remeras, buzos, camperas, tote bags y todo lo que es de tela." },
-        { id: "agendas", t: "Agendas y cuadernos", d: "Agendas, cuadernos, señaladores y stickers." },
+        {
+          id: "indumentaria",
+          t: "Indumentaria",
+          d: "Remeras, buzos, camperas, tote bags y todo lo que es de tela.",
+        },
+        {
+          id: "agendas",
+          t: "Agendas y cuadernos",
+          d: "Agendas, cuadernos, señaladores y stickers.",
+        },
         { id: "tazas", t: "Tazas", d: "Tazas de cerámica." }, // cuando sumes termos, ponelos con tipo:"tazas" y cambiá esta frase
-        { id: "impresiones", t: "Impresiones", d: "Planchas DTF textil y DTF UV." },
+        {
+          id: "impresiones",
+          t: "Impresiones",
+          d: "Planchas DTF textil y DTF UV.",
+        },
         { id: "velas", t: "Velas", d: "Velas de soja hechas a mano." },
         { id: "servicios", t: "Servicios" },
         { id: "contacto", t: "Contacto" },
       ];
       // 3c) SERVICIOS: resumen básico que se ve en el botón "Servicios". Editá, sumá o borrá bloques libremente.
       const SERVICIOS = [
-        { t: "Bajada de plancha", d: "Aplico tu diseño sobre tus prendas o productos. Consultame según la cantidad." },
-        { t: "Edición de videos", d: "Edición de videos a pedido. Contame qué necesitás." },
-        { t: "Creación de webs", d: "¿Te gusta esta web? Puedo hacer la tuya, a tu medida." },
+        {
+          t: "Bajada de plancha",
+          d: "Aplico tu diseño sobre tus prendas o productos. Consultame según la cantidad.",
+        },
+        {
+          t: "Edición de videos",
+          d: "Edición de videos a pedido. Podés ver algunos ejemplos en mi portfolio.",
+          portfolio: "#",
+        },
+        {
+          t: "Creación de webs",
+          d: "¿Te gusta esta web? Puedo hacer la tuya, a tu medida.",
+          portfolio: "#",
+        },
       ];
       // 4) COLORES DISPONIBLES. ["Nombre","#hex"]. C6 = buzos y camperas, C16 = remeras 24.1 unisex.
       //    Para una paleta nueva: const MIS=[["Rojo","#D62828"],...] y usala como c:MIS en el producto.
@@ -1072,17 +1109,19 @@
           a: [50, 56, 59, 61, 62],
           n: "Largo: del punto más alto del hombro a la base. Ancho: de axila a axila.",
         },
-               };
+      };
       // 6) VARIANTES REUTILIZABLES (se usan en varios productos). Una variante es un modelo/tamaño con su propio precio:
       //    n = nombre visible | p = precio (sin p = "A consultar") | s = talles | c = colores | t = tabla de talles | nota = aviso
-      const UNI = { // remera unisex 24.1
+      const UNI = {
+        // remera unisex 24.1
         n: "Unisex",
         p: 25000,
         s: ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL", "7XL"],
         c: C16,
         t: "uni",
       };
-      const MUJ = { // remera corte mujer 24.1
+      const MUJ = {
+        // remera corte mujer 24.1
         n: "Corte mujer",
         p: 20000,
         s: ["S", "M", "L", "XL"],
@@ -1122,7 +1161,7 @@
         },
         {
           n: "Remera Matcha Latte Verde ",
-          im: ["img/prendas/matcha1.jpg","img/prendas/matcha.jpg"],
+          im: ["img/prendas/matcha1.jpg", "img/prendas/matcha.jpg"],
           tipo: "indumentaria",
           d: "Remera de calidad premium confeccionada en algodón peinado 24.1, la opción más equilibrada entre suavidad, frescura y durabilidad.",
           v: [UNI, MUJ],
@@ -1132,29 +1171,31 @@
           im: ["img/prendas/orgullo-canguro.jpg"],
           tipo: "indumentaria",
           d: "Buzo canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
-          v:[
-            bz("Unisex", 45000, "buzo"),
-          ],          
+          v: [bz("Unisex", 45000, "buzo")],
         },
         {
           n: "Tote Bags Personalizadas",
-          im: ["img/tote/TOTE-MESSI.jpg","img/tote/TOTE-PASTOR.jpg"],
+          im: ["img/tote/TOTE-MESSI.jpg", "img/tote/TOTE-PASTOR.jpg"],
           tipo: "indumentaria",
           d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí la estampa que más te guste.",
-          v: [
-            { n: "35x40, diseño 31x34", p: 15000 },
-          ],
+          v: [{ n: "35x40, diseño 31x34", p: 15000 }],
         },
         {
           n: "Taza de cerámica personalizada",
-          im: ["img/tazas/2.jpg","img/tazas/1.jpg","img/tazas/3.jpg"],
+          im: ["img/tazas/2.jpg", "img/tazas/1.jpg", "img/tazas/3.jpg"],
           tipo: "tazas",
           d: "Taza de cerámica para el café número siete del día.",
           v: [{ n: "Cerámica", p: 12000 }],
         },
         {
           n: "Cuaderno A5 anillado ",
-          im: ["img/CUADERNOSA5/1.jpg","img/CUADERNOSA5/2.png","img/CUADERNOSA5/3.png","img/CUADERNOSA5/4.jpg","img/CUADERNOSA5/6.jpg"],
+          im: [
+            "img/CUADERNOSA5/1.jpg",
+            "img/CUADERNOSA5/2.png",
+            "img/CUADERNOSA5/3.png",
+            "img/CUADERNOSA5/4.jpg",
+            "img/CUADERNOSA5/6.jpg",
+          ],
           tipo: "agendas",
           d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. 100 hojas interiores de 90gr.",
           v: [
@@ -1167,7 +1208,8 @@
           im: fotos("senaladores"),
           tipo: "agendas",
           d: "Señaladores personalizados. Cada pack trae 5. Se pueden plastificar o imantar. Los 5 diseños pueden ser distintos o iguales, contame qué querés.",
-          v: [{ n: "Pack x5 simples", p: 4500 },
+          v: [
+            { n: "Pack x5 simples", p: 4500 },
             { n: "Pack x5 plastificados", p: 5500 },
             { n: "Pack x5 imantados dobles", p: 9000 },
           ],
@@ -1195,13 +1237,24 @@
           tipo: "impresiones",
           d: "Planchas de diseños DTF textil para estampar en tela. Contame qué necesitás y te paso el presupuesto.",
           v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
-                  },
+        },
         {
           n: "Vela de soja en frasco",
           tipo: "velas",
           im: ["img/VELAS/velas.png"],
           d: "Vela de soja hecha a mano, en frasco de vidrio de 200 cc. Consultame los aromas disponibles.",
-          v: [{ n: "200 cc", p: 13000 , aroma: [{ n: "Vainilla" }, { n: "Naranja Pimienta" }, { n: "Café" }, { n: "Tilo Lavanda" }] }],
+          v: [
+            {
+              n: "200 cc",
+              p: 13000,
+              aroma: [
+                { n: "Vainilla" },
+                { n: "Naranja Pimienta" },
+                { n: "Café" },
+                { n: "Tilo Lavanda" },
+              ],
+            },
+          ],
         },
       ];
       // 7b) PRODUCTOS EN STOCK
@@ -1210,13 +1263,17 @@
           n: "Canguro rústico Malvinas",
           im: ["img/stock/malvinas.jpg", "img/stock/remera-taylor-2.jpg"],
           d: "Última unidad, ya lista para enviar.",
-          v: [{ n: "Unisex", p: 18000, s: "L", c: "Azul marino"}],
+          v: [{ n: "Unisex", p: 18000, s: "L", c: "Azul marino" }],
         },
         {
           n: "Cuaderno de lecturas artesanal, tapa de tela, ",
-          im: ["img/stock/LECTURAS1.jpg", "img/stock/LECTURAS2.jpg","img/stock/LECTURAS3.jpg",],
+          im: [
+            "img/stock/LECTURAS1.jpg",
+            "img/stock/LECTURAS2.jpg",
+            "img/stock/LECTURAS3.jpg",
+          ],
           d: "Tapa de tela, interior de papel ahuesado, para llenar de tus registros de lecturas.",
-          v: [{p: 15000}],
+          v: [{ p: 15000 }],
         },
       ];
       // 8) FOTOS DE EJEMPLO: genera una imagen provisoria. Se usa solo si el producto no tiene im:[...].
@@ -1418,7 +1475,11 @@
       //     Si hay más productos, abajo aparecen páginas (1 2 3 ...) y se van sumando solas.
       const POR_PAGINA = { compu: 9, tablet: 6, celu: 4 };
       const porPagina = () =>
-        innerWidth <= 700 ? POR_PAGINA.celu : innerWidth <= 900 ? POR_PAGINA.tablet : POR_PAGINA.compu;
+        innerWidth <= 700
+          ? POR_PAGINA.celu
+          : innerWidth <= 900
+            ? POR_PAGINA.tablet
+            : POR_PAGINA.compu;
       let tag = "",
         pag = 0;
       // show(tipo, página): muestra los productos de ese tipo ("" = todos). "servicios" y "contacto" muestran un panel de texto.
@@ -1428,14 +1489,15 @@
           .querySelectorAll(".tag,.sn")
           .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t == t));
         const g = $("#grid");
-        $("#tipodesc").textContent = (TIPOS.find((x) => x.id === t) || {}).d || "";
+        $("#tipodesc").textContent =
+          (TIPOS.find((x) => x.id === t) || {}).d || "";
         $("#pager").innerHTML = "";
         if (t === "servicios") {
           g.innerHTML =
             '<p class="svc-intro">Además de los productos, hago estos trabajos. Escribime y te cuento cómo es.</p>' +
             SERVICIOS.map(
               (s) =>
-                `<div class="svc"><h3>${s.t}</h3><p>${s.d}</p><a class="btn o" href="${IG}" target="_blank" rel="noopener">Consultar</a></div>`,
+                `<div class="svc"><h3>${s.t}</h3><p>${s.d}</p><div class="svc-btns"><a class="btn" href="${IG}" target="_blank" rel="noopener">Consultar</a>${s.portfolio ? `<a class="btn o" href="${s.portfolio}" target="_blank" rel="noopener">Ver portfolio</a>` : ""}</div></div>`,
             ).join("");
           return;
         }
@@ -1447,7 +1509,9 @@
           n = porPagina(),
           paginas = Math.max(1, Math.ceil(l.length / n));
         pag = Math.min(pg, paginas - 1);
-        g.replaceChildren(...l.slice(pag * n, (pag + 1) * n).map((p) => card(p)));
+        g.replaceChildren(
+          ...l.slice(pag * n, (pag + 1) * n).map((p) => card(p)),
+        );
         if (!l.length) {
           g.innerHTML =
             '<p class="vacio">Todavía no hay productos en esta categoría. Escribime y lo vemos.</p>';
@@ -1474,7 +1538,8 @@
         if (n === ultimoN) return;
         const primero = pag * ultimoN;
         ultimoN = n;
-        if (tag !== "servicios" && tag !== "contacto") show(tag, Math.floor(primero / n));
+        if (tag !== "servicios" && tag !== "contacto")
+          show(tag, Math.floor(primero / n));
       });
       // 12) Arma los botones de filtro de la tienda y el menú de la barra superior (a partir de TIPOS), y los lomos decorativos de la portada (a partir de TAGS).
       const botonesTipo = (cls) =>
