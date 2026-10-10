@@ -12,7 +12,7 @@
      false = la web se ve normal.
      Cambiá la palabra de abajo y volvé a subir el archivo. -->
     <script>
-      var MANTENIMIENTO = true;
+      var MANTENIMIENTO = false;
       if (MANTENIMIENTO) document.documentElement.classList.add("mant");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1166,8 +1166,11 @@
           n: "Señaladores",
           im: fotos("senaladores"),
           tipo: "agendas",
-          d: "Señaladores fotográficos con moño. Cada pack trae 5.",
-          v: [{ n: "Pack x5", p: 1225 }],
+          d: "Señaladores personalizados. Cada pack trae 5. Se pueden plastificar o imantar. Los 5 diseños pueden ser distintos o iguales, contame qué querés.",
+          v: [{ n: "Pack x5 simples", p: 4500 },
+            { n: "Pack x5 plastificados", p: 5500 },
+            { n: "Pack x5 imantados dobles", p: 9000 },
+          ],
         },
         {
           n: "Stickers de vinilo",
@@ -1192,35 +1195,28 @@
           tipo: "impresiones",
           d: "Planchas de diseños DTF textil para estampar en tela. Contame qué necesitás y te paso el presupuesto.",
           v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
-        },
+                  },
         {
           n: "Vela de soja en frasco",
           tipo: "velas",
+          im: ["img/VELAS/velas.png"],
           d: "Vela de soja hecha a mano, en frasco de vidrio de 200 cc. Consultame los aromas disponibles.",
-          v: [{ n: "200 cc", p: 12031 }],
+          v: [{ n: "200 cc", p: 13000 , aroma: [{ n: "Vainilla" }, { n: "Naranja Pimienta" }, { n: "Café" }, { n: "Tilo Lavanda" }] }],
         },
       ];
-      // 7b) PRODUCTOS EN STOCK: lo que tenés hecho y listo para entregar. Puede ser CUALQUIER producto.
-      //     Se escribe igual que los de arriba (n, g, d, im, v). La diferencia: acá cargás solo lo que realmente tenés,
-      //     por ejemplo un solo talle y color. Acá NO se eligen: el producto sale resaltado, con la cintita "Listo para retirar",
-      //     y muestra el talle y color fijos que cargues con  s:"M"  y  c:"Negro"  (texto simple). Sin s ni c, no muestra talle/color.
-      //     En el carrito y en el mensaje del pedido aparece marcado "en stock" para que lo distingas de lo que hay que producir.
-      //     Si la lista está vacía [], la sección "En stock" y su link del menú se ocultan solos.
-      //     EJEMPLO (sacale las // para activarlo):
-      //       {
-      //         n: "Remera Taylor Swift",
-      //         im: fotos("stock-remera-taylor"),
-      //         g: [],
-      //         d: "Última unidad, ya lista para enviar.",
-      //         v: [{ n: "Unisex", p: 21000, s: "M", c: "Negro", t: "uni" }],
-      //       },
-      //     Para sacar un producto cuando se vende: borrá su bloque (o comentalo con //).
+      // 7b) PRODUCTOS EN STOCK
       const STOCK = [
         {
           n: "Canguro rústico Malvinas",
           im: ["img/stock/malvinas.jpg", "img/stock/remera-taylor-2.jpg"],
           d: "Última unidad, ya lista para enviar.",
           v: [{ n: "Unisex", p: 18000, s: "L", c: "Azul marino"}],
+        },
+        {
+          n: "Cuaderno de lecturas artesanal, tapa de tela, ",
+          im: ["img/stock/LECTURAS1.jpg", "img/stock/LECTURAS2.jpg","img/stock/LECTURAS3.jpg",],
+          d: "Tapa de tela, interior de papel ahuesado, para llenar de tus registros de lecturas.",
+          v: [{p: 15000}],
         },
       ];
       // 8) FOTOS DE EJEMPLO: genera una imagen provisoria. Se usa solo si el producto no tiene im:[...].
