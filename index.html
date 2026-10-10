@@ -206,37 +206,195 @@
         color: var(--ac);
         margin-bottom: 14px;
       }
-      /* COLECCIONES como lomos de libros (cada uno es un botón que filtra la tienda). */
+      /* UNIVERSOS (solo decorativo): lomos de libros chiquitos. NO son botones, no llevan a ningún lado. */
       .pila {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
         margin: 0;
         padding: 0;
         list-style: none;
         transform: rotate(-2deg);
+        max-width: 280px;
       }
-      .pila button {
-        width: 100%;
-        text-align: left;
-        padding: 14px 20px;
-        font: 500 0.95rem var(--sans);
-        letter-spacing: 0.22em;
+      .pila span {
+        display: block;
+        padding: 8px 14px;
+        font: 500 0.72rem var(--sans);
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        border: 0;
         border-radius: 3px;
-        box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.2s;
+        box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
       }
       .pila li:nth-child(odd) {
-        margin-left: 16px;
+        margin-left: 12px;
       }
       .pila li:nth-child(3n) {
-        margin-left: -6px;
+        margin-left: -4px;
       }
-      .pila button:hover {
-        transform: translateX(10px);
+      /* En el celular se acomodan en filas, uno al lado del otro, más chiquitos todavía. */
+      @media (max-width: 860px) {
+        .pila {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          max-width: none;
+          transform: none;
+        }
+        .pila li,
+        .pila li:nth-child(odd),
+        .pila li:nth-child(3n) {
+          margin: 0;
+        }
+        .pila span {
+          padding: 6px 10px;
+          font-size: 0.66rem;
+          letter-spacing: 0.12em;
+        }
+      }
+      /* MENÚ DE CATEGORÍAS en la barra superior (.subnav).
+         Compu: una segunda fila con todas las categorías. Celular: se esconde y se abre con el botón "Tienda". */
+      .m {
+        display: none;
+      }
+      .subnav {
+        border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+      }
+      nav .subnav .w {
+        height: auto;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 4px 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .sn {
+        background: none;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        color: var(--fg);
+        font: 500 0.92rem var(--sans);
+        padding: 4px 2px;
+        cursor: pointer;
+      }
+      .sn:hover {
+        color: var(--ac);
+      }
+      .sn[aria-pressed="true"] {
+        color: var(--ac);
+        border-bottom-color: var(--ac);
+      }
+      #tm::after {
+        content: " ▾";
+      }
+      #tm[aria-expanded="true"]::after {
+        content: " ▴";
+      }
+      @media (min-width: 701px) {
+        html {
+          scroll-padding-top: calc(116px + env(safe-area-inset-top, 0px));
+        }
+      }
+      @media (max-width: 700px) {
+        .m {
+          display: block;
+        }
+        .subnav {
+          display: none;
+        }
+        .subnav.open {
+          display: block;
+          max-height: calc(100vh - 90px);
+          overflow-y: auto;
+        }
+        nav .subnav .w {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        .sn {
+          text-align: left;
+          font-size: 1rem;
+          padding: 13px 8px 13px 16px;
+          border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+        }
+        .sn[aria-pressed="true"] {
+          background: color-mix(in srgb, var(--ac) 12%, transparent);
+        }
+      }
+      /* TIENDA PAGINADA: columnas fijas. Compu 3 columnas, tablet 2, celular 1.
+         (Cuántos productos entran por página se define en el script: constante POR_PAGINA.) */
+      #grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 900px) {
+        #grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 700px) {
+        #grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      #grid .vacio {
+        grid-column: 1 / -1;
+      }
+      /* Selector de páginas debajo de la tienda. */
+      .pager {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 32px;
+      }
+      .pager button {
+        min-width: 42px;
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1.5px solid var(--ac);
+        background: none;
+        color: var(--ac);
+        font: 500 1rem var(--sans);
+        cursor: pointer;
+      }
+      .pager button[aria-current="page"] {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      .pager button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      /* SERVICIOS y CONTACTO: paneles de texto dentro de la tienda (sin carrito). */
+      .svc {
+        background: var(--card);
+        border-radius: 6px;
+        padding: 22px;
+        box-shadow: 0 10px 26px -16px rgba(0, 0, 0, 0.45);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .svc h3 {
+        font-size: 1.35rem;
+      }
+      .svc p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .svc-intro {
+        grid-column: 1 / -1;
+        margin: 0;
+      }
+      .svc-btns {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
       }
       /* Color de cada lomo, en el MISMO ORDEN que la lista TAGS del script (t0 = primera colección, t1 = segunda...). */
       .t0 {
@@ -651,6 +809,10 @@
           <li class="h" id="navstock" hidden><a href="#stock">En stock</a></li>
           <li class="h"><a href="#tienda">Tienda</a></li>
           <li class="h"><a href="#como">Cómo pedir</a></li>
+          <!-- Solo celular: botón "Tienda" que abre/cierra el menú de categorías (reemplaza al link "Tienda") -->
+          <li class="m">
+            <button class="btn o" id="tm" type="button" aria-expanded="false" aria-controls="subnav">Tienda</button>
+          </li>
           <li>
             <button class="btn" id="cb" type="button">
               Carrito<span id="cn">0</span>
@@ -658,9 +820,13 @@
           </li>
         </ul>
       </div>
+      <!-- CATEGORÍAS: Todo + una por cada tipo de TIPOS (las genera el script). -->
+      <div class="subnav" id="subnav">
+        <div class="w" role="group" aria-label="Categorías de la tienda"></div>
+      </div>
     </nav>
 
-    <!-- PORTADA. Texto de presentación: editalo a gusto. La lista de colecciones (<ul id="pila">) la genera el script a partir de TAGS. -->
+    <!-- PORTADA. Texto de presentación: editalo a gusto. La lista de universos (<ul id="pila">, solo decorativa) la genera el script a partir de TAGS. -->
     <header class="hero" id="top">
       <div class="w">
         <div>
@@ -678,7 +844,7 @@
           <a class="btn" href="#tienda">Ver la tienda</a>
         </div>
         <div id="colecciones">
-          <h2 style="font-size: 1.6rem; margin: 0 0 14px">Colecciones</h2>
+          <h2 style="font-size: 1.15rem; margin: 0 0 10px">Mis universos</h2>
           <ul class="pila" id="pila"></ul>
         </div>
       </div>
@@ -709,9 +875,12 @@
           class="tags"
           id="tags"
           role="group"
-          aria-label="Filtrar por colección"
+          aria-label="Filtrar por tipo de producto"
         ></div>
+        <p id="tipodesc" style="margin: 0 0 20px"></p>
         <div class="grid" id="grid"></div>
+        <!-- Páginas: se arma sola; aparece solo si hay más productos de los que entran en una página. -->
+        <div class="pager" id="pager" role="navigation" aria-label="Páginas de la tienda"></div>
       </div>
     </section>
 
@@ -832,8 +1001,8 @@
       // 2) UTILIDADES: fmt() da formato de precio ($12.000), $() es un atajo para buscar elementos.
       const fmt = (n) => "$" + n.toLocaleString("es-AR"),
         $ = (s) => document.querySelector(s);
-      // 3) COLECCIONES (tags). Cada una filtra los productos que la incluyan en su campo g:[...].
-      //    Para agregar una: sumá el nombre acá Y un color nuevo .t8 en el CSS. El orden define el color de cada lomo.
+      // 3) UNIVERSOS (solo decorativos): son los lomos de libros de la portada. NO filtran nada ni son botones.
+      //    Para agregar uno: sumá el nombre acá Y un color nuevo .t8 en el CSS. El orden define el color de cada lomo.
       const TAGS = [
         "Literatura",
         "Series",
@@ -843,6 +1012,26 @@
         "Videojuegos",
         "Nostalgia",
         "Tu universo",
+      ];
+      // 3b) TIPOS DE PRODUCTO: son los botones de filtro de la tienda. Cada producto elige uno con  tipo:"id".
+      //     id = palabra clave (la que va en tipo:)   t = texto del botón   d = frase corta que se ve al elegirlo (opcional)
+      //     Para agregar un tipo nuevo: sumá una línea acá y usá su id en los productos. El orden es el de los botones.
+      //     "servicios" y "contacto" son especiales: no muestran productos sino un panel de texto (ver SERVICIOS más abajo).
+      const IG = "https://www.instagram.com/jesiestudio_";
+      const TIPOS = [
+        { id: "indumentaria", t: "Indumentaria", d: "Remeras, buzos, camperas, tote bags y todo lo que es de tela." },
+        { id: "agendas", t: "Agendas y cuadernos", d: "Agendas, cuadernos, señaladores y stickers." },
+        { id: "tazas", t: "Tazas", d: "Tazas de cerámica." }, // cuando sumes termos, ponelos con tipo:"tazas" y cambiá esta frase
+        { id: "impresiones", t: "Impresiones", d: "Planchas DTF textil y DTF UV." },
+        { id: "velas", t: "Velas", d: "Velas de soja hechas a mano." },
+        { id: "servicios", t: "Servicios" },
+        { id: "contacto", t: "Contacto" },
+      ];
+      // 3c) SERVICIOS: resumen básico que se ve en el botón "Servicios". Editá, sumá o borrá bloques libremente.
+      const SERVICIOS = [
+        { t: "Bajada de plancha", d: "Aplico tu diseño sobre tus prendas o productos. Consultame según la cantidad." },
+        { t: "Edición de videos", d: "Edición de videos a pedido. Contame qué necesitás." },
+        { t: "Creación de webs", d: "¿Te gusta esta web? Puedo hacer la tuya, a tu medida." },
       ];
       // 4) COLORES DISPONIBLES. ["Nombre","#hex"]. C6 = buzos y camperas, C16 = remeras 24.1 unisex.
       //    Para una paleta nueva: const MIS=[["Rojo","#D62828"],...] y usala como c:MIS en el producto.
@@ -855,11 +1044,7 @@
         ["Blanco", "#FFFFFF"],
       ];
       const C16 = [
-        ["Violeta", "#7A3E98"],
         ["Azul noche", "#12213A"],
-        ["Azul francia", "#2A6FD0"],
-        ["Celeste", "#9DB7E6"],
-        ["Rosa bebé", "#F2C3D6"],
         ["Bordó", "#7B1426"],
         ["Marrón", "#5A3425"],
         ["Negro", "#151515"],
@@ -882,24 +1067,24 @@
           n: "Los talles pueden variar unos cm.",
         },
         buzo: {
-          t: "Buzo cuello redondo clásico / invisible",
+          t: "Buzo cuello redondo invisible",
           l: [62, 64, 67, 72, 73],
           a: [50, 56, 59, 61, 62],
           n: "Largo: del punto más alto del hombro a la base. Ancho: de axila a axila.",
         },
-      };
+               };
       // 6) VARIANTES REUTILIZABLES (se usan en varios productos). Una variante es un modelo/tamaño con su propio precio:
       //    n = nombre visible | p = precio (sin p = "A consultar") | s = talles | c = colores | t = tabla de talles | nota = aviso
-      const UNI = {
+      const UNI = { // remera unisex 24.1
         n: "Unisex",
-        p: 21000,
+        p: 25000,
         s: ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL", "7XL"],
         c: C16,
         t: "uni",
       };
-      const MUJ = {
+      const MUJ = { // remera corte mujer 24.1
         n: "Corte mujer",
-        p: 18000,
+        p: 20000,
         s: ["S", "M", "L", "XL"],
         t: "muj",
         nota: "El color de este modelo lo coordinamos al confirmar el pedido.",
@@ -918,7 +1103,7 @@
         Array.from({ length: n }, (_, i) => `fotos/${s}-${i + 1}.jpg`);
       // 7) PRODUCTOS. Cada producto es un bloque entre llaves { }, separados por coma.
       //    CAMPOS:
-      //      n:  nombre            g: ["Colecciones"] donde aparece     d: descripción
+      //      n:  nombre            tipo: "indumentaria" | "agendas" | "tazas" | "impresiones" | "velas"  (en qué botón de la tienda aparece)     d: descripción
       //      v:  [variantes]       (modelos/tamaños/precios; si hay más de una, el cliente elige)
       //      im: fotos("slug")  → usa fotos/slug-1.jpg, slug-2.jpg, slug-3.jpg (ver FOTOS más arriba). O a mano: im:["fotos/a.jpg","fotos/b.png"]
       //    PARA AGREGAR: copiá un bloque, pegalo antes del ] final y cambiá los datos.
@@ -930,107 +1115,64 @@
       const P = [
         {
           n: "Remera Jane Austen Reading Club",
-          im: fotos("remera-jane-austen"),
-          g: ["Literatura"],
+          im: ["img/prendas/jane.jpg"],
+          tipo: "indumentaria",
           d: "Libros apilados con moño bordó, para lectoras con demasiados favoritos. Algodón peinado, con una referencia chiquita en la manga.",
           v: [UNI, MUJ],
         },
         {
-          n: "Remera Taylor Swift",
-          im: fotos("remera-taylor-swift"),
-          g: ["Música"],
-          d: "Collage de fotos y una frase para cantar a los gritos. Algodón peinado, con mis iniciales bordadas en la manga.",
+          n: "Remera Matcha Latte Verde ",
+          im: ["img/prendas/matcha1.jpg","img/prendas/matcha.jpg"],
+          tipo: "indumentaria",
+          d: "Remera de calidad premium confeccionada en algodón peinado 24.1, la opción más equilibrada entre suavidad, frescura y durabilidad.",
           v: [UNI, MUJ],
         },
         {
-          n: "Buzo Stars Hollow Book Club",
-          im: fotos("buzo-stars-hollow"),
-          g: ["Series"],
-          d: "Para quienes todavía quieren mudarse a Stars Hollow. Buzo friza con taza de café en la manga.",
+          n: "Buzo canguro orgullo y prejuicio",
+          im: ["img/prendas/orgullo-canguro.jpg"],
+          tipo: "indumentaria",
+          d: "Buzo canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
+          v:[
+            bz("Unisex", 45000, "buzo"),
+          ],          
+        },
+        {
+          n: "Tote Bags Personalizadas",
+          im: ["img/tote/TOTE-MESSI.jpg","img/tote/TOTE-PASTOR.jpg"],
+          tipo: "indumentaria",
+          d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí la estampa que más te guste.",
           v: [
-            bz("Cuello redondo clásico", 33000, "buzo"),
-            bz("Cuello redondo invisible", 34000, "buzo"),
-            bz("Canguro friza clásica", 34000),
-            bz("Canguro friza invisible", 44000),
+            { n: "35x40, diseño 31x34", p: 15000 },
           ],
         },
         {
-          n: "Campera canguro con tu universo",
-          im: fotos("campera-canguro"),
-          g: ["Tu universo"],
-          d: "Campera canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
-          v: [bz("Canguro friza clásica", 38000)],
-        },
-        {
-          n: "Tote Books, Coffee & Music",
-          im: fotos("tote-books-coffee-music"),
-          g: ["Literatura", "Nostalgia"],
-          d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí el tamaño de la bolsa y de la estampa.",
-          v: [
-            { n: "30x35 con logo 10x10", p: 6683 },
-            { n: "30x35, diseño 26x30", p: 9850 },
-            { n: "35x40, diseño 26x30", p: 11363 },
-            { n: "35x40, diseño 31x34", p: 18375 },
-          ],
-        },
-        {
-          n: "Taza Just a Girl Who Loves Books",
-          im: fotos("taza-just-a-girl"),
-          g: ["Literatura"],
-          d: "Taza de cerámica con frase en bordó y un moño.",
-          v: [{ n: "Cerámica", p: 12000 }],
-        },
-        {
-          n: "Taza Luke's",
-          im: fotos("taza-lukes"),
-          g: ["Series"],
+          n: "Taza de cerámica personalizada",
+          im: ["img/tazas/2.jpg","img/tazas/1.jpg","img/tazas/3.jpg"],
+          tipo: "tazas",
           d: "Taza de cerámica para el café número siete del día.",
           v: [{ n: "Cerámica", p: 12000 }],
         },
         {
-          n: "Cuaderno",
-          im: fotos("cuaderno"),
-          g: ["Literatura", "Arte"],
-          d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. Elegí el tamaño.",
+          n: "Cuaderno A5 anillado ",
+          im: ["img/CUADERNOSA5/1.jpg","img/CUADERNOSA5/2.png","img/CUADERNOSA5/3.png","img/CUADERNOSA5/4.jpg","img/CUADERNOSA5/6.jpg"],
+          tipo: "agendas",
+          d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. 100 hojas interiores de 90gr.",
           v: [
-            { n: "A5", p: 15420 },
+            { n: "A5", p: 15500 },
             { n: "A4", p: 19900 },
           ],
         },
         {
-          n: "Agenda 2026",
-          im: fotos("agenda-2026"),
-          g: ["Literatura", "Arte"],
-          d: "Agenda 2026 de tapa dura diseñada por mí, anillada y con elástico.",
-          v: [{ n: "A5", p: 14820 }],
-        },
-        {
-          n: "Agenda emprendedora",
-          im: fotos("agenda-emprendedora"),
-          g: ["Tu universo"],
-          d: "Agenda emprendedora de tapa dura diseñada por mí.",
-          // ↓ Todavía sin precio: se muestra "A consultar". Para venderla desde la web agregá  p: 0000  (tu precio).
-          v: [{ n: "Agenda" }],
-        },
-        {
-          n: "Agenda universitaria",
-          im: fotos("agenda-universitaria"),
-          g: ["Tu universo"],
-          d: "Agenda universitaria de tapa dura diseñada por mí.",
-          // ↓ Todavía sin precio: se muestra "A consultar". Para venderla desde la web agregá  p: 0000  (tu precio).
-          v: [{ n: "Agenda" }],
-        },
-        {
-          n: "Señaladores One More Chapter",
+          n: "Señaladores",
           im: fotos("senaladores"),
-          g: ["Literatura"],
+          tipo: "agendas",
           d: "Señaladores fotográficos con moño. Cada pack trae 5.",
           v: [{ n: "Pack x5", p: 1225 }],
         },
         {
           n: "Stickers de vinilo",
           im: fotos("stickers"),
-          g: ["Nostalgia", "Tu universo"],
+          tipo: "agendas",
           d: "Stickers de vinilo autoadhesivo cortados, de 5 cm.",
           v: [
             { n: "x3", p: 1830 },
@@ -1041,9 +1183,21 @@
         {
           n: "Planchas DTF UV",
           im: fotos("planchas-dtf-uv"),
-          g: ["Tu universo"],
+          tipo: "impresiones",
           d: "Planchas de diseños para pegar en lo que quieras. Contame qué necesitás y te paso el presupuesto.",
           v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
+        },
+        {
+          n: "Planchas DTF textil",
+          tipo: "impresiones",
+          d: "Planchas de diseños DTF textil para estampar en tela. Contame qué necesitás y te paso el presupuesto.",
+          v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
+        },
+        {
+          n: "Vela de soja en frasco",
+          tipo: "velas",
+          d: "Vela de soja hecha a mano, en frasco de vidrio de 200 cc. Consultame los aromas disponibles.",
+          v: [{ n: "200 cc", p: 12031 }],
         },
       ];
       // 7b) PRODUCTOS EN STOCK: lo que tenés hecho y listo para entregar. Puede ser CUALQUIER producto.
@@ -1262,42 +1416,103 @@
         draw();
         return el;
       }
-      // 11) FILTRO: show(colección) muestra solo los productos de esa colección ("" = todos).
-      let tag = "";
-      function show(t) {
+      // 11) FILTRO Y PÁGINAS DE LA TIENDA.
+      //     POR_PAGINA = cuántos productos se ven por página según el ancho de pantalla. Cambiá los números si querés otra cantidad:
+      //       compu (más de 900 px): 9 = 3 filas x 3 columnas | tablet: 6 = 3 filas x 2 columnas | celular: 4 = 4 filas x 1 columna
+      //     Si hay más productos, abajo aparecen páginas (1 2 3 ...) y se van sumando solas.
+      const POR_PAGINA = { compu: 9, tablet: 6, celu: 4 };
+      const porPagina = () =>
+        innerWidth <= 700 ? POR_PAGINA.celu : innerWidth <= 900 ? POR_PAGINA.tablet : POR_PAGINA.compu;
+      let tag = "",
+        pag = 0;
+      // show(tipo, página): muestra los productos de ese tipo ("" = todos). "servicios" y "contacto" muestran un panel de texto.
+      function show(t, pg = 0) {
         tag = t;
         document
-          .querySelectorAll(".tag")
+          .querySelectorAll(".tag,.sn")
           .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t == t));
-        const l = P.filter((p) => !t || p.g.includes(t));
-        $("#grid").replaceChildren(...l.map((p) => card(p)));
+        const g = $("#grid");
+        $("#tipodesc").textContent = (TIPOS.find((x) => x.id === t) || {}).d || "";
+        $("#pager").innerHTML = "";
+        if (t === "servicios") {
+          g.innerHTML =
+            '<p class="svc-intro">Además de los productos, hago estos trabajos. Escribime y te cuento cómo es.</p>' +
+            SERVICIOS.map(
+              (s) =>
+                `<div class="svc"><h3>${s.t}</h3><p>${s.d}</p><a class="btn o" href="${IG}" target="_blank" rel="noopener">Consultar</a></div>`,
+            ).join("");
+          return;
+        }
+        if (t === "contacto") {
+          g.innerHTML = `<div class="svc"><h3>Escribime</h3><p>Para pedidos, consultas o trabajos especiales. Te respondo por mensaje.</p><div class="svc-btns"><a class="btn" href="${IG}" target="_blank" rel="noopener">Instagram</a>${WHATSAPP ? `<a class="btn o" href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a>` : ""}</div></div>`;
+          return;
+        }
+        const l = P.filter((p) => !t || p.tipo === t),
+          n = porPagina(),
+          paginas = Math.max(1, Math.ceil(l.length / n));
+        pag = Math.min(pg, paginas - 1);
+        g.replaceChildren(...l.slice(pag * n, (pag + 1) * n).map((p) => card(p)));
         if (!l.length) {
-          $("#grid").innerHTML =
-            '<p class="vacio">Esta colección todavía está en camino. Si querés algo de este universo, escribime y lo diseñamos.</p>';
+          g.innerHTML =
+            '<p class="vacio">Todavía no hay productos en esta categoría. Escribime y lo vemos.</p>';
+        }
+        if (paginas > 1) {
+          let h = `<button type="button" data-p="${pag - 1}" aria-label="Página anterior"${pag === 0 ? " disabled" : ""}>‹</button>`;
+          for (let i = 0; i < paginas; i++)
+            h += `<button type="button" data-p="${i}" aria-label="Página ${i + 1}"${i === pag ? ' aria-current="page"' : ""}>${i + 1}</button>`;
+          h += `<button type="button" data-p="${pag + 1}" aria-label="Página siguiente"${pag === paginas - 1 ? " disabled" : ""}>›</button>`;
+          $("#pager").innerHTML = h;
         }
       }
-      // 12) Arma los botones de filtro y los lomos de la portada a partir de TAGS, y arranca la web.
-      $("#tags").innerHTML = ["", ...TAGS]
-        .map(
-          (t) =>
-            `<button class="tag" type="button" data-t="${t}" aria-pressed="false">${t || "Todo"}</button>`,
-        )
-        .join("");
+      // Cambiar de página: vuelve al principio de la tienda.
+      $("#pager").onclick = (e) => {
+        const b = e.target.closest("button");
+        if (!b || b.disabled) return;
+        show(tag, +b.dataset.p);
+        $("#tienda").scrollIntoView();
+      };
+      // Si cambia el tamaño de la pantalla (ej. girar el celular), recalcula las páginas sin perder el lugar.
+      let ultimoN = porPagina();
+      addEventListener("resize", () => {
+        const n = porPagina();
+        if (n === ultimoN) return;
+        const primero = pag * ultimoN;
+        ultimoN = n;
+        if (tag !== "servicios" && tag !== "contacto") show(tag, Math.floor(primero / n));
+      });
+      // 12) Arma los botones de filtro de la tienda y el menú de la barra superior (a partir de TIPOS), y los lomos decorativos de la portada (a partir de TAGS).
+      const botonesTipo = (cls) =>
+        [{ id: "", t: "Todo" }, ...TIPOS]
+          .map(
+            (x) =>
+              `<button class="${cls}" type="button" data-t="${x.id}" aria-pressed="false">${x.t}</button>`,
+          )
+          .join("");
+      $("#tags").innerHTML = botonesTipo("tag");
       $("#tags").onclick = (e) => {
         const b = e.target.closest(".tag");
         if (b) show(b.dataset.t);
       };
-      $("#pila").innerHTML = TAGS.map(
-        (t, i) =>
-          `<li><button class="t${i}" type="button" data-t="${t}">${t}</button></li>`,
-      ).join("");
-      $("#pila").onclick = (e) => {
-        const b = e.target.closest("button");
-        if (b) {
-          show(b.dataset.t);
-          $("#tienda").scrollIntoView();
-        }
+      // MENÚ de la barra superior: al elegir una categoría, la muestra, baja a la tienda y (en celular) cierra el menú.
+      $("#subnav .w").innerHTML = botonesTipo("sn");
+      const menu = $("#subnav"),
+        botonMenu = $("#tm");
+      const cerrarMenu = () => {
+        menu.classList.remove("open");
+        botonMenu.setAttribute("aria-expanded", "false");
       };
+      botonMenu.onclick = () =>
+        botonMenu.setAttribute("aria-expanded", menu.classList.toggle("open"));
+      menu.onclick = (e) => {
+        const b = e.target.closest(".sn");
+        if (!b) return;
+        show(b.dataset.t);
+        cerrarMenu();
+        $("#tienda").scrollIntoView();
+      };
+      $("#pila").innerHTML = TAGS.map(
+        (t, i) => `<li><span class="t${i}">${t}</span></li>`,
+      ).join("");
       // 13) EN STOCK: si hay productos en STOCK, dibuja la sección y muestra el link del menú.
       if (STOCK.length) {
         $("#stockgrid").replaceChildren(...STOCK.map((p) => card(p, true)));
