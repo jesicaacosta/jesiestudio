@@ -7,6 +7,19 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>Jesi Estudio · Llevá lo que te gusta</title>
+    <!-- FAVICON (iconito de la pestaña) y color de la barra del celular. Archivo: favicon.png en la misma carpeta. -->
+    <link rel="icon" type="image/png" href="avicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <meta name="theme-color" content="#b0496b" />
+    <meta name="description" content="Jesi Estudio: remeras, buzos, tote bags, tazas, agendas y más con tus libros, series y obsesiones. También hago tu diseño a medida." />
+    <!-- VISTA PREVIA AL COMPARTIR EL LINK (WhatsApp, Instagram, etc.).
+         IMPORTANTE: og:image necesita la dirección COMPLETA de la imagen compartir.png ya subida a tu hosting.
+         Cuando tengas tu dominio, reemplazá TU-DOMINIO.com por el real (ej: https://jesiestudio.com.ar/compartir.png). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jesi Estudio · Llevá lo que te gusta" />
+    <meta property="og:description" content="Remeras, buzos, tote bags, tazas, agendas y más. Hacé tu pedido o pedime tu diseño personalizado." />
+    <meta property="og:image" content="https://TU-DOMINIO.com/compartir.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <!-- ============ INTERRUPTOR DE MANTENIMIENTO ============
      true  = la web muestra SOLO el cartel de mantenimiento.
      false = la web se ve normal.
@@ -24,48 +37,32 @@
     <style>
       /* COLORES Y FUENTES de la marca.  
    LOGO: los dos archivos tienen que estar en la MISMA CARPETA que este html.
-   logo.png = versión borgoña (fondo claro). logo-claro.png = versión crema (modo oscuro). Ambos con fondo transparente. */
+   logo.png = versión rosa (fondo claro). logo.png = versión crema (modo oscuro). Ambos con fondo transparente. */
       :root {
         --papel: #f4ede3;
-        --borgona: #5a1a1f;
-        --tinta: #1b1412;
-        --bosque: #1f3a2d;
-        --azul: #1c2740;
-        --dorado: #b8924a;
-        --beige: #c9b79c;
-        --bg: #f4ede3;
-        --fg: #1b1412;
-        --ac: #5a1a1f;
-        --su: #eadfd0;
-        --card: #fbf7f0;
+        --rosa: #b04974;
+        --tinta: #2a2127;
+        --bosque: #628c3a;
+        --azul: #000d31;
+        --dorado: #c9a14a;
+        --beige: #ecd2cc;
+        --bg: #fdf8f3;
+        --fg: #2a2127;
+        --ac: #b0496b;
+        --su: #f8e6e4;
+        --card: #fffcf8;
         --logo-l: url("logo.png");
-        --logo-d: url("logo-claro.png");
+        --logo-d: url("logo.png");
         --logo: var(--logo-l);
         --serif: "Playfair Display", Georgia, serif;
         --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
         box-sizing: border-box;
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      /* MODO OSCURO: se activa solo si el celular/compu del cliente está en modo oscuro. */
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --bg: #1a0f10;
-          --fg: #f4ede3;
-          --ac: #e3b7a8;
-          --su: #2a1618;
-          --card: #241214;
-          --logo: var(--logo-d);
-        }
-      }
-      :root[data-theme="dark"] {
-        --bg: #1a0f10;
-        --fg: #f4ede3;
-        --ac: #e3b7a8;
-        --su: #2a1618;
-        --card: #241214;
-        --logo: var(--logo-d);
-      }
+      /* TEMA CLARO FIJO: la web se ve siempre clara (crema), aunque el celular o la compu del cliente esté en modo oscuro.
+         Si algún día querés volver a tener modo oscuro automático, avisame y lo reactivamos. */
       /* BASE: scroll suave, tipografía general y ancho máximo del contenido (.w). */
       html {
         scroll-behavior: smooth;
@@ -103,7 +100,7 @@
         font-size: clamp(2rem, 5vw, 3.2rem);
       }
       a {
-        color: #c9b79c;
+        color: #ecd2cc;
         font-weight: 600;
       }
       p {
@@ -176,7 +173,7 @@
       }
       #cn {
         background: var(--dorado);
-        color: #1b1412;
+        color: #2a2127;
         border-radius: 99px;
         padding: 0 7px;
         margin-left: 6px;
@@ -370,6 +367,64 @@
         opacity: 0.35;
         cursor: default;
       }
+      /* ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Las tarjetas usan el estilo .svc; las preguntas son desplegables (<details>). */
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 28px 0 40px;
+      }
+      @media (max-width: 760px) {
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .faq details {
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 18%, transparent);
+        padding: 14px 0;
+      }
+      .faq summary {
+        cursor: pointer;
+        font: 700 1.15rem var(--serif);
+        color: var(--ac);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary::after {
+        content: "+";
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+      .faq details[open] summary::after {
+        content: "–";
+      }
+      .faq p {
+        margin: 10px 0 0;
+      }
+      /* BOTÓN FLOTANTE DE WHATSAPP (aparece solo si cargaste WHATSAPP en el script). */
+      .wafloat {
+        position: fixed;
+        right: 18px;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        z-index: 30;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #25d366;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .wafloat svg {
+        width: 30px;
+        height: 30px;
+        fill: #fff;
+      }
       /* SERVICIOS y CONTACTO: paneles de texto dentro de la tienda (sin carrito). */
       .svc {
         background: var(--card);
@@ -399,28 +454,28 @@
       }
       /* Color de cada lomo, en el MISMO ORDEN que la lista TAGS del script (t0 = primera colección, t1 = segunda...). */
       .t0 {
-        background: #e9e0d2;
-        color: #4a3b36;
+        background: #f9e9e6;
+        color: #5b3a47;
       }
       .t1 {
         background: var(--azul);
-        color: #e9e0d2;
+        color: #f9e9e6;
       }
       .t2 {
-        background: var(--borgona);
-        color: #eadbd0;
+        background: var(--rosa);
+        color: #fde9ee;
       }
       .t3 {
-        background: #dcd2c2;
-        color: #4a3b36;
+        background: #ecd6cf;
+        color: #5b3a47;
       }
       .t4 {
         background: var(--bosque);
-        color: #e9e0d2;
+        color: #f9e9e6;
       }
       .t5 {
-        background: #efe8dc;
-        color: #5a1a1f;
+        background: #fbeee9;
+        color: #b0496b;
       }
       .t6 {
         background: var(--tinta);
@@ -428,7 +483,7 @@
       }
       .t7 {
         background: var(--beige);
-        color: #3a2d28;
+        color: #4a3441;
       }
       /* SECCIONES generales. .alt = fondo más oscuro para alternar. */
       section {
@@ -475,7 +530,7 @@
       .card.stock {
         outline: 2px solid var(--dorado);
         outline-offset: -2px;
-        box-shadow: 0 16px 34px -14px rgba(184, 146, 74, 0.7);
+        box-shadow: 0 16px 34px -14px rgba(201, 161, 74, 0.7);
       }
       .badge {
         position: absolute;
@@ -483,7 +538,7 @@
         left: -6px;
         z-index: 2;
         background: var(--dorado);
-        color: #1b1412;
+        color: #2a2127;
         font: 500 0.85rem/1 var(--sans);
         padding: 9px 16px 9px 14px;
         border-radius: 0 4px 4px 0;
@@ -520,7 +575,7 @@
         border-radius: 50%;
         border: 0;
         background: rgba(244, 237, 227, 0.9);
-        color: #5a1a1f;
+        color: #b0496b;
         font-size: 1.4rem;
         cursor: pointer;
       }
@@ -642,8 +697,8 @@
       }
       /* PIE de página. */
       footer {
-        background: var(--borgona);
-        color: #f1e3d8;
+        background: var(--rosa);
+        color: #fdeef0;
         padding: 60px 0 36px;
       }
       footer h2 {
@@ -651,7 +706,7 @@
       }
       footer .btn {
         background: #f4ede3;
-        color: #5a1a1f;
+        color: #b0496b;
         border-color: #f4ede3;
       }
       footer .pie {
@@ -810,6 +865,7 @@
           <li class="h" id="navstock" hidden><a href="#stock">En stock</a></li>
           <li class="h"><a href="#tienda">Tienda</a></li>
           <li class="h"><a href="#como">Cómo pedir</a></li>
+          <li class="h"><a href="#info">Envíos y preguntas</a></li>
           <!-- Solo celular: botón "Tienda" que abre/cierra el menú de categorías (reemplaza al link "Tienda") -->
           <li class="m">
             <button
@@ -901,13 +957,12 @@
     <!-- CÓMO PEDIR: 3 pasos. Editá los textos libremente. -->
     <section id="como">
       <div class="w">
-        <h2>¿Tu universo no está? Lo hacemos juntas</h2>
+        <h2>¿Cómo pedir un producto personalizado?</h2>
         <ol class="pasos">
           <li>
-            <h3>Contame tu idea</h3>
+            <h3>Enviame tu idea</h3>
             <p>
-              Una referencia, una frase, un nombre, un chiste que solo entienden
-              ustedes.
+              Una referencia, una frase, un nombre, una foto de tu perrijo...
             </p>
           </li>
           <li>
@@ -924,6 +979,15 @@
             </p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Los textos están en el script (listas ENVIOS y FAQ): editalos ahí. -->
+    <section class="alt" id="info">
+      <div class="w">
+        <h2>Envíos, pagos y preguntas</h2>
+        <div class="info-cards" id="envios"></div>
+        <div class="faq" id="faq"></div>
       </div>
     </section>
 
@@ -946,6 +1010,11 @@
         </p>
       </div>
     </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP: lo activa el script si WHATSAPP tiene tu número. -->
+    <a class="wafloat" id="wafloat" hidden target="_blank" rel="noopener" href="#" aria-label="Escribime por WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
 
     <!-- CARRITO: lista de ítems, total, comentarios, datos de transferencia y botones para enviar el pedido. Se completa solo desde el script. -->
     <aside id="cart" aria-label="Carrito" aria-hidden="true">
@@ -1167,7 +1236,7 @@
           v: [UNI, MUJ],
         },
         {
-          n: "Buzo canguro orgullo y prejuicio",
+          n: "Buzo canguro, diseño personalizado.",
           im: ["img/prendas/orgullo-canguro.jpg"],
           tipo: "indumentaria",
           d: "Buzo canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
@@ -1212,17 +1281,6 @@
             { n: "Pack x5 simples", p: 4500 },
             { n: "Pack x5 plastificados", p: 5500 },
             { n: "Pack x5 imantados dobles", p: 9000 },
-          ],
-        },
-        {
-          n: "Stickers de vinilo",
-          im: fotos("stickers"),
-          tipo: "agendas",
-          d: "Stickers de vinilo autoadhesivo cortados, de 5 cm.",
-          v: [
-            { n: "x3", p: 1830 },
-            { n: "x10", p: 3675 },
-            { n: "x20", p: 9800 },
           ],
         },
         {
@@ -1282,7 +1340,7 @@
         return (
           "data:image/svg+xml," +
           encodeURIComponent(
-            `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect width='400' height='400' fill='hsl(${h} 35% ${i % 2 ? 82 : 90}%)'/><text x='200' y='195' text-anchor='middle' font-family='Georgia' font-size='24' fill='#5A1A1F'>${n}</text><text x='200' y='232' text-anchor='middle' font-family='Georgia' font-size='18' fill='#5A1A1F' opacity='.6'>foto ${i + 1}</text></svg>`,
+            `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect width='400' height='400' fill='hsl(${h} 35% ${i % 2 ? 82 : 90}%)'/><text x='200' y='195' text-anchor='middle' font-family='Georgia' font-size='24' fill='#b0496b'>${n}</text><text x='200' y='232' text-anchor='middle' font-family='Georgia' font-size='18' fill='#b0496b' opacity='.6'>foto ${i + 1}</text></svg>`,
           )
         );
       }
@@ -1574,6 +1632,28 @@
       $("#pila").innerHTML = TAGS.map(
         (t, i) => `<li><span class="t${i}">${t}</span></li>`,
       ).join("");
+      // 12b) ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Editá los textos libremente (revisalos: son una base general).
+      //      ENVIOS = las 3 tarjetas de arriba.   FAQ = preguntas desplegables. Para sumar una pregunta, copiá un bloque { q, a }.
+      const ENVIOS = [
+        { t: "Pagos", d: "Pagás por transferencia. Al armar tu pedido ves el total y los datos, y me mandás el comprobante por mensaje. En la web no se cobra nada asi que tranqui." },
+        { t: "Envíos", d: "Hago envíos. El costo depende del destino y lo coordinamos por mensaje antes de pagar. (No está incluido en el total del carrito!)" },
+        { t: "Retiro", d: "Lo que está en stock lo podés retirar. Coordinamos día y lugar por mensaje." },
+      ];
+      const FAQ = [
+        { q: "¿Cómo hago un pedido?", a: "Elegí tus productos, agregalos al carrito y mandame el pedido por WhatsApp o Instagram (o copialo y pegalo). Yo te confirmo todo y coordinamos el pago." },
+        { q: "¿Cuánto tarda un pedido personalizado?", a: "De 10 a 15 días hábiles es el tiempo que recomendamos. Dependiendo del producto,cantidad y/o tenemos stock, puede ser en la misma semana pero siempre consultá. Apenas me escribís te confirmo el tiempo estimado." },
+        { q: "¿Puedo pedir un diseño propio?", a: "Sí. Contame tu idea (una referencia, una frase, un nombre, un chiste que solo entienden ustedes), la diseño con vos y la llevo al producto que mejor funcione." },
+        { q: "¿Cómo elijo mi talle?", a: "Cada prenda tiene su tabla de talles en el producto (\"Ver tabla de talles\"). Si dudás entre dos, escribime y te ayudo." },
+        { q: "¿Los productos en stock se pueden elegir en otro talle o color?", a: "No: son los que ya están hechos, con el talle y el color que se indican en cada uno." },
+      ];
+      $("#envios").innerHTML = ENVIOS.map((e) => `<div class="svc"><h3>${e.t}</h3><p>${e.d}</p></div>`).join("");
+      $("#faq").innerHTML = FAQ.map((f) => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
+      // Botón flotante de WhatsApp: se muestra solo si cargaste tu número en WHATSAPP (arriba, en los datos de pago).
+      if (WHATSAPP) {
+        const w = $("#wafloat");
+        w.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola Jesi, quería consultar por un producto.");
+        w.hidden = false;
+      }
       // 13) EN STOCK: si hay productos en STOCK, dibuja la sección y muestra el link del menú.
       if (STOCK.length) {
         $("#stockgrid").replaceChildren(...STOCK.map((p) => card(p, true)));
