@@ -425,6 +425,89 @@
         height: 30px;
         fill: #fff;
       }
+      /* CAMPO "DISEÑO" de las tarjetas con dis: true (la clienta escribe qué diseño quiere) y link a tus redes. */
+      .dsg {
+        font: inherit;
+        padding: 9px;
+        border-radius: 6px;
+        border: 1.5px solid color-mix(in srgb, var(--fg) 30%, transparent);
+        background: var(--bg);
+        color: var(--fg);
+        width: 100%;
+      }
+      .lkd {
+        color: var(--ac);
+        font-size: 0.88rem;
+      }
+      /* TARJETA CHICA de la tienda (solo foto, nombre, precio y botón) y VENTANA DEL PRODUCTO (modal) con todo el detalle. */
+      .card .tit {
+        background: none;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+      /* Foto principal de las tarjetas de la tienda: un poco más alta que cuadrada (4:5). En la ventana del producto no cambia. */
+      .grid .car img {
+        aspect-ratio: 4 / 5;
+      }
+
+      /* Foto de la ventana del producto (modal): también un poco más alta, 4:5 */
+#pm .car img {
+  aspect-ratio: 4 / 5;
+}
+
+
+      #pm {
+        width: min(960px, 96vw);
+        max-height: 92vh;
+        overflow: auto;
+        border: 0;
+        border-radius: 10px;
+        padding: 0;
+        background: var(--card);
+        color: var(--fg);
+      }
+      #pm::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+      }
+      #pm .card {
+        box-shadow: none;
+        border-radius: 0;
+        overflow: visible;
+      }
+      .pmx {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 5;
+        margin: 8px 8px -48px auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ac);
+        background: var(--card);
+        color: var(--ac);
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+      @media (min-width: 761px) {
+        #pm .card {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+        #pm .cw {
+          flex: 1 1 50%;
+          min-width: 0;
+        }
+        #pm .b {
+          flex: 1 1 50%;
+          padding: 28px 24px;
+        }
+      }
       /* SERVICIOS y CONTACTO: paneles de texto dentro de la tienda (sin carrito). */
       .svc {
         background: var(--card);
@@ -515,7 +598,7 @@
       /* GRILLA de productos y estilo de cada tarjeta (.card). */
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); /* mínimo 285px, máximo 1fr  */
         gap: 22px;
       }
       .card {
@@ -931,7 +1014,9 @@
     <!-- TIENDA. Las tarjetas se generan solas desde la lista de productos P del script. Para agregar/quitar productos NO tocás este HTML. -->
     <section class="alt" id="tienda">
       <div class="w">
-        <h2>Tienda</h2>
+        <h2>Tienda de colecciones </h2>
+        <h3> <br> </h3>
+        <h3 style="color: #000d31;"> Recorda que también podes enviarnos tu diseño. Todos los diseños pueden ir para cualquier prenda (Ejemplo: Te gustó un diseño de una croptop para buzo? Se hace!). </h3>
         <p style="margin-top: 12px">
           Armá tu pedido y pagalo por transferencia. Los pagos no se hacen en
           esta web: yo te confirmo todo por mensaje y coordinamos el envío.
@@ -1059,6 +1144,13 @@
         <small id="ok" role="status"></small>
       </div>
     </aside>
+    <!-- VENTANA DEL PRODUCTO (modal): se abre al tocar la foto o el nombre de un producto, o "Agregar al carrito" si hay que elegir opciones.
+         Adentro se muestra el detalle completo (fotos grandes, descripción, talle, color, diseño...). La llena el script. -->
+    <dialog id="pm" aria-label="Detalle del producto">
+      <button class="pmx" id="pmx" type="button" aria-label="Cerrar">×</button>
+      <div id="pmc"></div>
+    </dialog>
+
     <!-- VENTANA de tabla de talles (se llena desde T en el script). -->
     <dialog id="tb">
       <div id="tbc"></div>
@@ -1109,8 +1201,8 @@
         },
         {
           id: "agendas",
-          t: "Agendas y cuadernos",
-          d: "Agendas, cuadernos, señaladores y stickers.",
+          t: "Cuadernos Personalizados, Señaladores y Stickers",
+          d: "Todo personalizado para tu escritorio, tu agenda o tu cuaderno.",
         },
         { id: "tazas", t: "Tazas", d: "Tazas de cerámica." }, // cuando sumes termos, ponelos con tipo:"tazas" y cambiá esta frase
         {
@@ -1178,6 +1270,12 @@
           a: [50, 56, 59, 61, 62],
           n: "Largo: del punto más alto del hombro a la base. Ancho: de axila a axila.",
         },
+        unico: {
+          t: "Talle único",
+          l: [37],
+          a: [41],
+          n: "Este producto tiene un solo tamaño.",
+        },
       };
       // 6) VARIANTES REUTILIZABLES (se usan en varios productos). Una variante es un modelo/tamaño con su propio precio:
       //    n = nombre visible | p = precio (sin p = "A consultar") | s = talles | c = colores | t = tabla de talles | nota = aviso
@@ -1192,10 +1290,14 @@
       const MUJ = {
         // remera corte mujer 24.1
         n: "Corte mujer",
-        p: 20000,
+        p: 22000,
         s: ["S", "M", "L", "XL"],
         t: "muj",
         nota: "El color de este modelo lo coordinamos al confirmar el pedido.",
+      };
+      const UNICO = {
+        c: C6, // colores disponibles
+        t: "unico",
       };
       // Buzos y camperas: talles S–XL con 6 colores. bz(nombre, precio, tablaOpcional) arma la variante.
       const SX = ["S", "M", "L", "XL"],
@@ -1209,6 +1311,9 @@
       //  Tip: fotos cuadradas, de 1000x1000 px aprox., livianas (menos de 300 KB cada una).
       const fotos = (s, n = 3) =>
         Array.from({ length: n }, (_, i) => `fotos/${s}-${i + 1}.jpg`);
+      // dis: true  → la tarjeta muestra el campo "Diseño" (obligatorio): la clienta escribe cuál querés de los que viste en tus redes.
+      //              Aparece también un link "Ver más diseños en Instagram" (el de IG, o el que pongas en  redes: "https://..."  del producto).
+      //              Sin dis: true, el producto se vende tal cual, como siempre.
       // 7) PRODUCTOS. Cada producto es un bloque entre llaves { }, separados por coma.
       //    CAMPOS:
       //      n:  nombre            tipo: "indumentaria" | "agendas" | "tazas" | "impresiones" | "velas"  (en qué botón de la tienda aparece)     d: descripción
@@ -1222,21 +1327,32 @@
       //    {n:"Taza Ejemplo",g:["Series"],d:"Descripción corta.",im:["fotos/taza1.jpg","fotos/taza2.jpg"],v:[{n:"Cerámica",p:12000}]},
       const P = [
         {
-          n: "Remera Jane Austen Reading Club",
-          im: ["img/prendas/jane.jpg"],
+          n: "Remeras literarias, corte de remera de mujer.",
+          dis: true,
+          im: ["img/ESTAMPAS/LITERARIAS/orgullo-n.jpg","img/ESTAMPAS/LITERARIAS/ORGULLO3.png","img/ESTAMPAS/LITERARIAS/lit.png"],
           tipo: "indumentaria",
-          d: "Libros apilados con moño bordó, para lectoras con demasiados favoritos. Algodón peinado, con una referencia chiquita en la manga.",
-          v: [UNI, MUJ],
+          d: "Remeras de algodón peinado, corte más al cuerpo, ideal para un look moderno.",
+          v: [MUJ],
         },
         {
-          n: "Remera Matcha Latte Verde ",
-          im: ["img/prendas/matcha1.jpg", "img/prendas/matcha.jpg"],
+          n: "Remeras corte clásico, unisex | Rock",
+          dis: true,
+          im: ["img/ESTAMPAS/ROCK/indio-b.jpg","img/ESTAMPAS/ROCK/stones.png"],
           tipo: "indumentaria",
           d: "Remera de calidad premium confeccionada en algodón peinado 24.1, la opción más equilibrada entre suavidad, frescura y durabilidad.",
-          v: [UNI, MUJ],
+          v: [UNI],
+        },
+          {
+          n: "Musculosa Baby Tee de algodón 100% ",
+          dis: true,
+          im: ["img/ESTAMPAS/LITERARIAS/romantasy-crop.jpg"],
+          tipo: "indumentaria",
+          d: "Remera de algodón 100% peinado 20.1, con mayor gramaje y cuerpo.",
+          v: [{ ...UNICO, p: 22000 }],
         },
         {
           n: "Buzo canguro, diseño personalizado.",
+          dis: true,
           im: ["img/prendas/orgullo-canguro.jpg"],
           tipo: "indumentaria",
           d: "Buzo canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
@@ -1244,6 +1360,7 @@
         },
         {
           n: "Tote Bags Personalizadas",
+          dis: true,
           im: ["img/tote/TOTE-MESSI.jpg", "img/tote/TOTE-PASTOR.jpg"],
           tipo: "indumentaria",
           d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí la estampa que más te guste.",
@@ -1251,20 +1368,19 @@
         },
         {
           n: "Taza de cerámica personalizada",
+          dis: true,
           im: ["img/tazas/2.jpg", "img/tazas/1.jpg", "img/tazas/3.jpg"],
           tipo: "tazas",
-          d: "Taza de cerámica para el café número siete del día.",
+          d: "Taza de cerámica personalizada con tu diseño. Puede ir con foto, ilustración y/o texto.",
           v: [{ n: "Cerámica", p: 12000 }],
         },
         {
           n: "Cuaderno A5 anillado ",
-          im: [
-            "img/CUADERNOSA5/1.jpg",
+          im: ["img/CUADERNOSA5/1.jpg",
             "img/CUADERNOSA5/2.png",
             "img/CUADERNOSA5/3.png",
             "img/CUADERNOSA5/4.jpg",
-            "img/CUADERNOSA5/6.jpg",
-          ],
+            "img/CUADERNOSA5/6.jpg",],
           tipo: "agendas",
           d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. 100 hojas interiores de 90gr.",
           v: [
@@ -1274,7 +1390,7 @@
         },
         {
           n: "Señaladores",
-          im: fotos("senaladores"),
+          im: ["img/SEÑALADORES/Floral.jpg", "img/SEÑALADORES/2.jpg", "img/SEÑALADORES/3.jpg"],
           tipo: "agendas",
           d: "Señaladores personalizados. Cada pack trae 5. Se pueden plastificar o imantar. Los 5 diseños pueden ser distintos o iguales, contame qué querés.",
           v: [
@@ -1285,15 +1401,9 @@
         },
         {
           n: "Planchas DTF UV",
-          im: fotos("planchas-dtf-uv"),
+          im: ["img/DTF-UV/Uv.JPG","img/DTF-UV/Uv1.png"],
           tipo: "impresiones",
           d: "Planchas de diseños para pegar en lo que quieras. Contame qué necesitás y te paso el presupuesto.",
-          v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
-        },
-        {
-          n: "Planchas DTF textil",
-          tipo: "impresiones",
-          d: "Planchas de diseños DTF textil para estampar en tela. Contame qué necesitás y te paso el presupuesto.",
           v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
         },
         {
@@ -1361,13 +1471,13 @@
           ? cart
               .map(
                 (x, i) =>
-                  `<div class="it"><b>${x.n}${x.st ? " (en stock)" : ""}</b><span>${fmt(x.p * x.q)}</span><small>${[x.v, x.s && "Talle " + x.s, x.c && "Color " + x.c].filter(Boolean).join(" · ")} · ${fmt(x.p)} c/u</small><span class="q"><button type="button" data-a="-" data-i="${i}" aria-label="Quitar uno">−</button> ${x.q} <button type="button" data-a="+" data-i="${i}" aria-label="Sumar uno">+</button></span></div>`,
+                  `<div class="it"><b>${x.n}${x.st ? " (en stock)" : ""}</b><span>${fmt(x.p * x.q)}</span><small>${[x.v, x.s && "Talle " + x.s, x.c && "Color " + x.c, x.dis && "Diseño " + x.dis].filter(Boolean).join(" · ")} · ${fmt(x.p)} c/u</small><span class="q"><button type="button" data-a="-" data-i="${i}" aria-label="Quitar uno">−</button> ${x.q} <button type="button" data-a="+" data-i="${i}" aria-label="Sumar uno">+</button></span></div>`,
               )
               .join("")
           : "<p>Tu carrito está vacío.</p>";
         const L = cart.map(
           (x) =>
-            `• ${x.q} x ${x.n}${x.st ? " [EN STOCK]" : ""} (${[x.v, x.s && "talle " + x.s, x.c && "color " + x.c].filter(Boolean).join(", ")}) = ${fmt(x.p * x.q)}`,
+            `• ${x.q} x ${x.n}${x.st ? " [EN STOCK]" : ""} (${[x.v, x.s && "talle " + x.s, x.c && "color " + x.c, x.dis && "diseño " + x.dis].filter(Boolean).join(", ")}) = ${fmt(x.p * x.q)}`,
         );
         const o = `Hola Jesi, quiero hacer este pedido:\n${L.join("\n")}\nTotal: ${fmt(total())} (envío a coordinar)${$("#nt").value ? "\nComentarios: " + $("#nt").value : ""}\nPago por transferencia, te mando el comprobante.`;
         $("#ord").value = cart.length ? o : "";
@@ -1428,13 +1538,14 @@
       }
       // 10) TARJETA DE PRODUCTO: carrusel, descripción, selectores de modelo/talle/color, precio y botón.
       //     Valida que elijan talle y color antes de agregar. Si la variante no tiene precio, el botón lleva a Instagram.
-      function card(p, st) {
+      function detalle(p, st) {   // DETALLE COMPLETO del producto (es lo que se ve dentro de la ventana/modal)
         // st = true cuando es un producto de la sección "En stock"
         const el = document.createElement("article");
         el.className = st ? "card stock" : "card"; // los de stock llevan la clase "stock" (resaltados)
         let vi = 0,
           sz = "",
-          co = "";
+          co = "",
+          dv = ""; // diseño que escribió la clienta (solo productos con dis: true)
         el.innerHTML = `<div class="cw">${st ? '<span class="badge">Listo para retirar</span>' : ""}<div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" data-n="${p.n}" onerror="noFoto(this)" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3>${p.n}</h3><p>${p.d}</p><div class="opt"></div></div>`;
         const car = el.querySelector(".car"),
           o = el.querySelector(".opt");
@@ -1464,6 +1575,9 @@
             (!st && v.c
               ? `<div class="cl" role="group" aria-label="Color">${v.c.map(([n, h]) => `<button type="button" class="sw" title="${n}" aria-label="${n}" data-n="${n}" style="background:${h}"></button>`).join("")}</div><small class="cn">Color: elegí uno</small>`
               : "") +
+            (p.dis && !st
+              ? `<label>Diseño<input class="dsg" type="text" maxlength="120" placeholder="¿Cuál querés? Escribilo o contame tu idea" value="${dv.replace(/"/g, "&quot;")}"></label><a class="lkd" href="${p.redes || IG}" target="_blank" rel="noopener">Ver más diseños en Instagram</a>`
+              : "") +
             (v.nota ? `<small>${v.nota}</small>` : "") +
             (v.t
               ? `<button type="button" class="lk">Ver tabla de talles</button>`
@@ -1489,6 +1603,8 @@
                 q(".cn").textContent = "Color: " + co;
               }),
           );
+          const di = q(".dsg");
+          if (di) di.oninput = () => (dv = di.value);
           const lk = q(".lk");
           if (lk) lk.onclick = () => table(v.t);
           q(".add").onclick = () => {
@@ -1505,8 +1621,13 @@
               e.textContent = "Elegí un color antes de agregar.";
               return;
             }
+            if (p.dis && !st && !dv.trim()) {
+              e.textContent = "Contame qué diseño querés (podés escribir una idea o mandarme la captura por mensaje).";
+              return;
+            }
             e.textContent = "";
-            const k = [p.n, v.n, sz, co, st ? "S" : ""].join("|"),
+            const dd = p.dis && !st ? dv.trim() : "",
+              k = [p.n, v.n, sz, co, st ? "S" : "", dd.toLowerCase()].join("|"),
               it = cart.find((x) => x.k == k);
             it
               ? it.q++
@@ -1519,14 +1640,51 @@
                   p: v.p,
                   q: 1,
                   st: !!st,
+                  dis: dd,
                 });
             paint();
+            const dlg = el.closest("dialog"); // si se agregó desde la ventana del producto, la cierra
+            if (dlg) dlg.close();
             cartOpen(true);
           };
         }
         draw();
         return el;
       }
+      // 10b) TARJETA de la tienda: fotos (carrusel), nombre, descripción, precio y botón. Talle, color, diseño y tabla de talles se eligen en la ventana (modal) del producto.
+      //      Si el producto tiene varios precios muestra "Desde $X". El botón "Agregar al carrito" abre la ventana cuando
+      //      hay que elegir algo (talle, color, modelo, diseño) y agrega directo cuando no hace falta (ej: señaladores).
+      const precioCard = (p) => {
+        const ps = p.v.map((v) => v.p).filter(Boolean);
+        if (!ps.length) return "A consultar";
+        const min = Math.min(...ps);
+        return (ps.some((x) => x !== min) ? "Desde " : "") + fmt(min);
+      };
+      const necesitaOpciones = (p, st) => {
+        if (!p.v.some((v) => v.p)) return false; // sin precio: el botón lleva directo a Instagram
+        const v0 = p.v[0];
+        return !!(p.dis && !st) || p.v.length > 1 || (!st && !!(v0.s || v0.c));
+      };
+      function abrirModal(p, st) {
+        $("#pmc").replaceChildren(detalle(p, st));
+        $("#pm").showModal();
+      }
+      function card(p, st) {
+        const el = document.createElement("article");
+        el.className = st ? "card stock" : "card";
+        el.innerHTML = `<div class="cw">${st ? '<span class="badge">Listo para retirar</span>' : ""}<div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" data-n="${p.n}" onerror="noFoto(this)" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3><button class="tit" type="button">${p.n}</button></h3><p>${p.d}</p>${p.dis && !st ? `<a class="lkd" href="${p.redes || IG}" target="_blank" rel="noopener">Ver más diseños en Instagram</a>` : ""}<div class="pr">${precioCard(p)}</div><button type="button" class="btn add">${p.v.some((v) => v.p) ? "Agregar al carrito" : "Consultar por Instagram"}</button></div>`;
+        const car = el.querySelector(".car");
+        el.querySelector(".pv").onclick = () => car.scrollBy({ left: -car.clientWidth, behavior: "smooth" });
+        el.querySelector(".nx").onclick = () => car.scrollBy({ left: car.clientWidth, behavior: "smooth" });
+        car.onclick = el.querySelector(".tit").onclick = () => abrirModal(p, st); // tocar la foto o el nombre abre la ventana
+        el.querySelector(".add").onclick = () =>
+          necesitaOpciones(p, st) ? abrirModal(p, st) : detalle(p, st).querySelector(".add").click();
+        return el;
+      }
+      $("#pm").onclick = (e) => {
+        if (e.target === $("#pm")) $("#pm").close(); // clic fuera de la ventana = cerrar
+      };
+      $("#pmx").onclick = () => $("#pm").close();
       // 11) FILTRO Y PÁGINAS DE LA TIENDA.
       //     POR_PAGINA = cuántos productos se ven por página según el ancho de pantalla. Cambiá los números si querés otra cantidad:
       //       compu (más de 900 px): 9 = 3 filas x 3 columnas | tablet: 6 = 3 filas x 2 columnas | celular: 4 = 4 filas x 1 columna
