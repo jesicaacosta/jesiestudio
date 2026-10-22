@@ -1,0 +1,1914 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Jesi Estudio · Llevá lo que te gusta</title>
+    <!-- FAVICON (iconito de la pestaña) y color de la barra del celular. Archivo: favicon.png en la misma carpeta. -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <meta name="theme-color" content="#b0496b" />
+    <meta
+      name="description"
+      content="Jesi Estudio: remeras, buzos, tote bags, tazas, agendas y más con tus libros, series y obsesiones. También hago tu diseño a medida."
+    />
+    <!-- VISTA PREVIA AL COMPARTIR EL LINK (WhatsApp, Instagram, etc.).
+         IMPORTANTE: og:image necesita la dirección COMPLETA de la imagen compartir.png ya subida a tu hosting.
+         Cuando tengas tu dominio, reemplazá TU-DOMINIO.com por el real (ej: https://jesiestudio.com.ar/compartir.png). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jesi Estudio · Llevá lo que te gusta" />
+    <meta
+      property="og:description"
+      content="Remeras, buzos, tote bags, tazas, agendas y más. Hacé tu pedido o pedime tu diseño personalizado."
+    />
+    <meta property="og:image" content="https://jesiestudio.netlify.app" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ============ INTERRUPTOR DE MANTENIMIENTO ============
+     true  = la web muestra SOLO el cartel de mantenimiento.
+     false = la web se ve normal.
+     Cambiá la palabra de abajo y volvé a subir el archivo. -->
+    <script>
+      var MANTENIMIENTO = false;
+      if (MANTENIMIENTO) document.documentElement.classList.add("mant");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* COLORES Y FUENTES de la marca.  
+   LOGO: los dos archivos tienen que estar en la MISMA CARPETA que este html. */
+      :root {
+        --papel: #f4ede3;
+        --rosa: #b04974;
+        --tinta: #2a2127;
+        --bosque: #628c3a;
+        --azul: #000d31;
+        --dorado: #c9a14a;
+        --beige: #ecd2cc;
+        --bg: #f5ebe2;
+        --fg: #2a2127;
+        --ac: #b0496b;
+        --su: #f8e6e4;
+        --card: #fffcf8;
+        --logo-l: url("logo.png");
+        --logo-d: url("logo.png");
+        --logo: var(--logo-l);
+        --serif: "Playfair Display", Georgia, serif;
+        --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      /* BASE: scroll suave, tipografía general y ancho máximo del contenido (.w). */
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px));
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 400 1.02rem/1.6 var(--sans);
+      }
+      :focus-visible {
+        outline: 2px solid var(--dorado);
+        outline-offset: 2px;
+      }
+      .w {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 22px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        color: var(--ac);
+        margin: 0;
+        line-height: 1.1;
+      }
+      h2 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+      }
+      a {
+        color: var(--tinta);
+        font-weight: 600;
+      }
+      p {
+        margin: 0 0 1em;
+        max-width: 60ch;
+      }
+      /* LOGO: caja con la imagen de fondo. Proporción del archivo: 620x407. */
+      .logo {
+        background: var(--logo) center/contain no-repeat;
+        aspect-ratio: 620/407;
+        display: block;
+      }
+      /* BARRA SUPERIOR fija con logo, links y botón del carrito. */
+      nav {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 20;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
+      }
+      nav .w {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+        gap: 14px;
+      }
+      nav .logo {
+        height: 54px;
+      }
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+      nav a {
+        text-decoration: none;
+      }
+      @media (max-width: 700px) {
+        nav li.h {
+          display: none;
+        }
+      }
+      /* BOTONES. .btn = relleno, .btn.o = solo borde. */
+      .btn {
+        display: inline-block;
+        background: var(--ac);
+        color: var(--bg);
+        padding: 11px 22px;
+        border-radius: 999px;
+        text-decoration: none;
+        font: 500 1rem var(--sans);
+        border: 1.5px solid var(--ac);
+        cursor: pointer;
+      }
+      .btn.o {
+        background: none;
+        color: var(--ac);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+      }
+      /* Botón del carrito y numerito dorado con la cantidad. */
+      #cb {
+        position: relative;
+      }
+      #cn {
+        background: var(--dorado);
+        color: #2a2127;
+        border-radius: 99px;
+        padding: 0 7px;
+        margin-left: 6px;
+        font-size: 0.85rem;
+      }
+      /* PORTADA: logo grande + lema a la izquierda, colecciones a la derecha. */
+      .hero {
+        padding: clamp(36px, 7vw, 80px) 0;
+      }
+      .hero .w {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
+        align-items: center;
+      }
+      @media (max-width: 860px) {
+        .hero .w {
+          grid-template-columns: 1fr;
+        }
+      }
+      .hero .logo {
+        width: min(430px, 82vw);
+        margin-bottom: 18px;
+      }
+      .lema {
+        font: italic 500 clamp(1.7rem, 4vw, 2.4rem)/1.2 var(--serif);
+        color: var(--ac);
+        margin-bottom: 14px;
+      }
+      /* UNIVERSOS (solo decorativo): lomos de libros chiquitos. NO son botones, no llevan a ningún lado. */
+      .pila {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transform: rotate(-2deg);
+        max-width: 280px;
+      }
+      .pila span {
+        display: block;
+        padding: 8px 14px;
+        font: 500 0.72rem var(--sans);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        border-radius: 3px;
+        box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+      }
+      .pila li:nth-child(odd) {
+        margin-left: 12px;
+      }
+      .pila li:nth-child(3n) {
+        margin-left: -4px;
+      }
+      /* En el celular se acomodan en filas, uno al lado del otro, más chiquitos todavía. */
+      @media (max-width: 860px) {
+        .pila {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          max-width: none;
+          transform: none;
+        }
+        .pila li,
+        .pila li:nth-child(odd),
+        .pila li:nth-child(3n) {
+          margin: 0;
+        }
+        .pila span {
+          padding: 6px 10px;
+          font-size: 0.66rem;
+          letter-spacing: 0.12em;
+        }
+      }
+      /* MENÚ DE CATEGORÍAS en la barra superior (.subnav).
+         Compu: una segunda fila con todas las categorías. Celular: se esconde y se abre con el botón "Tienda". */
+      .m {
+        display: none;
+      }
+      .subnav {
+        border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+      }
+      nav .subnav .w {
+        height: auto;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 4px 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .sn {
+        background: none;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        color: var(--fg);
+        font: 500 0.92rem var(--sans);
+        padding: 4px 2px;
+        cursor: pointer;
+      }
+      .sn:hover {
+        color: var(--ac);
+      }
+      .sn[aria-pressed="true"] {
+        color: var(--ac);
+        border-bottom-color: var(--ac);
+      }
+      #tm::after {
+        content: " ▾";
+      }
+      #tm[aria-expanded="true"]::after {
+        content: " ▴";
+      }
+      @media (min-width: 701px) {
+        html {
+          scroll-padding-top: calc(116px + env(safe-area-inset-top, 0px));
+        }
+      }
+      @media (max-width: 700px) {
+        .m {
+          display: block;
+        }
+        .subnav {
+          display: none;
+        }
+        .subnav.open {
+          display: block;
+          max-height: calc(100vh - 90px);
+          overflow-y: auto;
+        }
+        nav .subnav .w {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        .sn {
+          text-align: left;
+          font-size: 1rem;
+          padding: 13px 8px 13px 16px;
+          border-bottom: 1px solid
+            color-mix(in srgb, var(--fg) 12%, transparent);
+        }
+        .sn[aria-pressed="true"] {
+          background: color-mix(in srgb, var(--ac) 12%, transparent);
+        }
+      }
+      /* TIENDA PAGINADA: columnas fijas. Compu 3 columnas, tablet 2, celular 1.
+         (Cuántos productos entran por página se define en el script: constante POR_PAGINA.) */
+      #grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 900px) {
+        #grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 700px) {
+        #grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      #grid .vacio {
+        grid-column: 1 / -1;
+      }
+      /* Selector de páginas debajo de la tienda. */
+      .pager {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 32px;
+      }
+      .pager button {
+        min-width: 42px;
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1.5px solid var(--ac);
+        background: none;
+        color: var(--ac);
+        font: 500 1rem var(--sans);
+        cursor: pointer;
+      }
+      .pager button[aria-current="page"] {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      .pager button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      /* ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Las tarjetas usan el estilo .svc; las preguntas son desplegables (<details>). */
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 28px 0 40px;
+      }
+      @media (max-width: 760px) {
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .faq details {
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 18%, transparent);
+        padding: 14px 0;
+      }
+      .faq summary {
+        cursor: pointer;
+        font: 700 1.15rem var(--serif);
+        color: var(--ac);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary::after {
+        content: "+";
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+      .faq details[open] summary::after {
+        content: "–";
+      }
+      .faq p {
+        margin: 10px 0 0;
+      }
+      /* BOTÓN FLOTANTE DE WHATSAPP (aparece solo si cargaste WHATSAPP en el script). */
+      .wafloat {
+        position: fixed;
+        right: 18px;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        z-index: 30;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #25d366;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .wafloat svg {
+        width: 30px;
+        height: 30px;
+        fill: #fff;
+      }
+      /* CAMPO "DISEÑO" de las tarjetas con dis: true (la clienta escribe qué diseño quiere) y link a tus redes. */
+      .dsg {
+        font: inherit;
+        padding: 9px;
+        border-radius: 6px;
+        border: 1.5px solid color-mix(in srgb, var(--fg) 30%, transparent);
+        background: var(--bg);
+        color: var(--fg);
+        width: 100%;
+      }
+      .lkd {
+        color: var(--ac);
+        font-size: 0.88rem;
+      }
+      /* TARJETA CHICA de la tienda (solo foto, nombre, precio y botón) y VENTANA DEL PRODUCTO (modal) con todo el detalle. */
+      .card .tit {
+        background: none;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+      /* Foto principal de las tarjetas de la tienda: un poco más alta que cuadrada (4:5). En la ventana del producto no cambia. */
+      .grid .car img {
+        aspect-ratio: 4 / 5;
+      }
+
+      /* Foto de la ventana del producto (modal): también un poco más alta, 4:5 */
+      #pm .car img {
+        aspect-ratio: 4 / 5;
+      }
+
+      #pm {
+        width: min(960px, 96vw);
+        max-height: 92vh;
+        overflow: auto;
+        border: 0;
+        border-radius: 10px;
+        padding: 0;
+        background: var(--card);
+        color: var(--fg);
+      }
+      #pm::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+      }
+      #pm .card {
+        box-shadow: none;
+        border-radius: 0;
+        overflow: visible;
+      }
+      .pmx {
+        display: block;
+        position: sticky;
+        top: 8px;
+        z-index: 5;
+        margin: 8px 8px -48px auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ac);
+        background: var(--card);
+        color: var(--ac);
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+      @media (min-width: 761px) {
+        #pm .card {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+        #pm .cw {
+          flex: 1 1 50%;
+          min-width: 0;
+        }
+        #pm .b {
+          flex: 1 1 50%;
+          padding: 28px 24px;
+        }
+      }
+      /* SERVICIOS y CONTACTO: paneles de texto dentro de la tienda (sin carrito). */
+      .svc {
+        background: var(--card);
+        border-radius: 6px;
+        padding: 22px;
+        box-shadow: 0 10px 26px -16px rgba(0, 0, 0, 0.45);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .svc h3 {
+        font-size: 1.35rem;
+      }
+      .svc p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .svc-intro {
+        grid-column: 1 / -1;
+        margin: 0;
+      }
+      .svc-btns {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      /* Color de cada lomo, en el MISMO ORDEN que la lista TAGS del script (t0 = primera colección, t1 = segunda...). */
+      .t0 {
+        background: #f9e9e6;
+        color: #5b3a47;
+      }
+      .t1 {
+        background: var(--azul);
+        color: #f9e9e6;
+      }
+      .t2 {
+        background: var(--rosa);
+        color: #fde9ee;
+      }
+      .t3 {
+        background: #ecd6cf;
+        color: #5b3a47;
+      }
+      .t4 {
+        background: var(--bosque);
+        color: #f9e9e6;
+      }
+      .t5 {
+        background: #fbeee9;
+        color: #b0496b;
+      }
+      .t6 {
+        background: var(--tinta);
+        color: var(--dorado);
+      }
+      .t7 {
+        background: var(--beige);
+        color: #4a3441;
+      }
+      /* SECCIONES generales. .alt = fondo más oscuro para alternar. */
+      section {
+        padding: clamp(48px, 8vw, 90px) 0;
+      }
+      .alt {
+        background: var(--su);
+      }
+      /* FILTROS de colección (botones redondeados arriba de la tienda). */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 22px 0 30px;
+      }
+      .tag {
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1.5px solid var(--ac);
+        background: none;
+        color: var(--ac);
+        font: 500 0.95rem var(--sans);
+        cursor: pointer;
+      }
+      .tag[aria-pressed="true"] {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      /* GRILLA de productos y estilo de cada tarjeta (.card). */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(285px, 1fr)
+        ); /* mínimo 285px, máximo 1fr  */
+        gap: 22px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 10px 26px -16px rgba(0, 0, 0, 0.45);
+        display: flex;
+        flex-direction: column;
+      }
+      /* PRODUCTO EN STOCK: borde dorado, sombra más fuerte y cintita "Listo para retirar" en la esquina de la foto. */
+      .card.stock {
+        outline: 2px solid var(--dorado);
+        outline-offset: -2px;
+        box-shadow: 0 16px 34px -14px rgba(201, 161, 74, 0.7);
+      }
+      .badge {
+        position: absolute;
+        top: 14px;
+        left: -6px;
+        z-index: 2;
+        background: var(--dorado);
+        color: #2a2127;
+        font: 500 0.85rem/1 var(--sans);
+        padding: 9px 16px 9px 14px;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      /* Talle y color FIJOS de un producto en stock (sin selectores). */
+      .fx {
+        font-weight: 500;
+        color: var(--ac);
+      }
+      /* CARRUSEL de fotos: se desliza con el dedo o con las flechas ‹ ›. */
+      .cw {
+        position: relative;
+      }
+      .car {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .car img {
+        flex: none;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        scroll-snap-align: center;
+      }
+      .cw > button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 0;
+        background: rgba(244, 237, 227, 0.9);
+        color: #b0496b;
+        font-size: 1.4rem;
+        cursor: pointer;
+      }
+      .pv {
+        left: 8px;
+      }
+      .nx {
+        right: 8px;
+      }
+/* MARCA DE AGUA: el logo sobre todas las fotos de los carruseles (tienda y ventana del producto) */
+.cw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: url("logo-claro.png") right 5% bottom 5% / 25% auto no-repeat;  opacity: 0.45;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none; /* no tapa los toques: se sigue pudiendo deslizar y abrir el producto */
+}
+/* Que las flechas del carrusel queden por encima del logo */
+.cw > button {
+  z-index: 3;
+}
+
+      /* Si el producto tiene una sola foto, se esconden las flechas del carrusel */
+      .car:has(img:only-child) ~ .pv,
+      .car:has(img:only-child) ~ .nx {
+        display: none;
+      }
+
+      /* Texto, selectores y precio dentro de la tarjeta. */
+      .b {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+      }
+      .b h3 {
+        font-size: 1.4rem;
+      }
+      .b p {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.85rem;
+        gap: 3px;
+      }
+      select,
+      textarea {
+        font: inherit;
+        padding: 9px;
+        border-radius: 6px;
+        border: 1.5px solid color-mix(in srgb, var(--fg) 30%, transparent);
+        background: var(--bg);
+        color: var(--fg);
+        width: 100%;
+      }
+      /* Círculos de color (.sw) para elegir color de prenda. .on = seleccionado. */
+      .cl {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .sw {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+        padding: 0;
+      }
+      .sw.on {
+        outline: 2px solid var(--ac);
+        outline-offset: 2px;
+      }
+      small {
+        font-size: 0.82rem;
+        opacity: 0.85;
+      }
+      .er {
+        color: #c0392b;
+        font-weight: 500;
+      }
+      .lk {
+        background: none;
+        border: 0;
+        color: var(--ac);
+        text-decoration: underline;
+        font: inherit;
+        font-size: 0.88rem;
+        text-align: left;
+        padding: 0;
+        cursor: pointer;
+      }
+      .pr {
+        font: 700 1.5rem var(--serif);
+        color: var(--ac);
+        margin-top: auto;
+      }
+      .vacio {
+        padding: 40px 0;
+      }
+      /* Sección "cómo pedir" (pasos numerados automáticamente). */
+      .pasos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
+        counter-reset: p;
+        list-style: none;
+        padding: 0;
+        margin: 30px 0 0;
+      }
+      @media (max-width: 760px) {
+        .pasos {
+          grid-template-columns: 1fr;
+        }
+      }
+      .pasos li {
+        counter-increment: p;
+      }
+      .pasos li::before {
+        content: counter(p);
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--ac);
+        color: var(--bg);
+        font: 700 1.25rem var(--serif);
+        margin-bottom: 12px;
+      }
+      .pasos h3 {
+        font-size: 1.45rem;
+        margin-bottom: 6px;
+      }
+      /* PIE de página. */
+      footer {
+        background: var(--rosa);
+        color: #fdeef0;
+        padding: 60px 0 36px;
+      }
+      footer h2 {
+        color: #f4ede3;
+      }
+      footer .btn {
+        background: #f4ede3;
+        color: #b0496b;
+        border-color: #f4ede3;
+      }
+      footer .pie {
+        margin-top: 44px;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+        padding-top: 18px;
+        font-size: 0.85rem;
+      }
+      /* CARRITO: panel lateral que se desliza desde la derecha. .on = abierto. */
+      #cart {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: min(440px, 100%);
+        background: var(--bg);
+        z-index: 40;
+        transform: translateX(105%);
+        transition: transform 0.25s;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      #cart.on {
+        transform: none;
+      }
+      #cart header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
+      }
+      #cart .bd {
+        overflow: auto;
+        padding: 16px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .it {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+      }
+      .it b {
+        font-family: var(--serif);
+        color: var(--ac);
+      }
+      .q button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ac);
+        background: none;
+        color: var(--ac);
+        cursor: pointer;
+      }
+      .tot {
+        display: flex;
+        justify-content: space-between;
+        font: 700 1.5rem var(--serif);
+        color: var(--ac);
+      }
+      /* VENTANA de tabla de talles (modal) y su tabla. */
+      #tb {
+        border: 0;
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--fg);
+        max-width: min(520px, 94vw);
+      }
+      #tb::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 12px 0;
+      }
+      td,
+      th {
+        border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent);
+        padding: 7px;
+        text-align: center;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      /* MANTENIMIENTO: el cartel está oculto salvo que el interruptor esté en true. Cuando está activo, se esconde todo lo demás. */
+      #mant {
+        display: none;
+        min-height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 18px;
+        padding: 32px 24px;
+      }
+      #mant .logo {
+        width: min(320px, 70vw);
+      }
+      #mant h1 {
+        font-size: clamp(1.8rem, 5vw, 2.8rem);
+      }
+      #mant p {
+        margin: 0 auto;
+      }
+      .mant #mant {
+        display: flex;
+      }
+      .mant body > *:not(#mant) {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CARTEL DE MANTENIMIENTO: editá los textos si querés. Solo se ve cuando MANTENIMIENTO = true (arriba, en el <head>). -->
+    <div id="mant">
+      <span class="logo" role="img" aria-label="Jesi Estudio creativo"></span>
+      <h1>Estamos en mantenimiento</h1>
+      <p>
+        Estoy renovando la tienda para que sea más linda. Mientras tanto,
+        escribime por Instagram y hacemos tu pedido por ahí.
+      </p>
+      <a
+        class="btn"
+        href="https://www.instagram.com/jesiestudio_"
+        target="_blank"
+        rel="noopener"
+        >Escribime por Instagram</a
+      >
+      <p style="font-size: 0.9rem">Un respiro entre tanto scroll.</p>
+    </div>
+
+    <!-- BARRA SUPERIOR: logo (vuelve al inicio) + links + botón Carrito. Los links apuntan a los id de abajo. -->
+    <nav>
+      <div class="w">
+        <a href="#top" aria-label="Jesi Estudio creativo"
+          ><span
+            class="logo"
+            role="img"
+            aria-label="Jesi Estudio creativo"
+          ></span
+        ></a>
+        <ul>
+          <li class="h"><a href="#colecciones">Colecciones</a></li>
+          <li class="h" id="navstock" hidden><a href="#stock">En stock</a></li>
+          <li class="h"><a href="#tienda">Tienda</a></li>
+          <li class="h"><a href="#como">Cómo pedir</a></li>
+          <li class="h"><a href="#info">Envíos y preguntas</a></li>
+          <!-- Solo celular: botón "Tienda" que abre/cierra el menú de categorías (reemplaza al link "Tienda") -->
+          <li class="m">
+            <button
+              class="btn o"
+              id="tm"
+              type="button"
+              aria-expanded="false"
+              aria-controls="subnav"
+            >
+              Tienda
+            </button>
+          </li>
+          <li>
+            <button class="btn" id="cb" type="button">
+              Carrito<span id="cn">0</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- CATEGORÍAS: Todo + una por cada tipo de TIPOS (las genera el script). -->
+      <div class="subnav" id="subnav">
+        <div class="w" role="group" aria-label="Categorías de la tienda"></div>
+      </div>
+    </nav>
+
+    <!-- PORTADA. Texto de presentación: editalo a gusto. La lista de universos (<ul id="pila">, solo decorativa) la genera el script a partir de TAGS. -->
+    <header class="hero" id="top">
+      <div class="w">
+        <div>
+          <span
+            class="logo"
+            role="img"
+            aria-label="Jesi Estudio creativo"
+          ></span>
+          <p class="lema">Llevá lo que te gusta.</p>
+          <p>
+            Hola, soy Jesi. Convierto tus libros, series, música y obsesiones en
+            cosas para llevar puestas o con vos. En cada producto escondo un
+            detalle más para que lo encuentres.
+          </p>
+          <a class="btn" href="#tienda">Ver la tienda</a>
+        </div>
+        <div id="colecciones">
+          <h2 style="font-size: 1.15rem; margin: 0 0 10px">Mis universos</h2>
+          <ul class="pila" id="pila"></ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- EN STOCK: productos que ya tenés hechos. Se llena sola desde la lista STOCK del script (sección 7b)
+         y se OCULTA sola (junto con su link del menú) si esa lista está vacía. Editá los textos si querés. -->
+    <section id="stock" hidden>
+      <div class="w">
+        <h2>En stock</h2>
+        <p style="margin-top: 12px">
+          Lo que ya está hecho y listo para retirar. Elegí, agregalo al carrito
+          y coordinamos el retiro.
+        </p>
+        <div class="grid" id="stockgrid" style="margin-top: 24px"></div>
+      </div>
+    </section>
+
+    <!-- TIENDA. Las tarjetas se generan solas desde la lista de productos P del script. Para agregar/quitar productos NO tocás este HTML. -->
+    <section class="alt" id="tienda">
+      <div class="w">
+        <h2>Tienda de colecciones</h2>
+        <h3><br /></h3>
+        <h3 style="color: #000d31">
+          Recorda que también podes enviarnos tu diseño. Todos los diseños
+          pueden ir para cualquier prenda (Ejemplo: Te gustó un diseño de una
+          croptop para buzo? Se hace!).
+        </h3>
+        <p style="margin-top: 12px">
+          Armá tu pedido y pagalo por transferencia. Los pagos no se hacen en
+          esta web: yo te confirmo todo por mensaje y coordinamos el envío.
+        </p>
+        <div
+          class="tags"
+          id="tags"
+          role="group"
+          aria-label="Filtrar por tipo de producto"
+        ></div>
+        <p id="tipodesc" style="margin: 0 0 20px"></p>
+        <div class="grid" id="grid"></div>
+        <!-- Páginas: se arma sola; aparece solo si hay más productos de los que entran en una página. -->
+        <div
+          class="pager"
+          id="pager"
+          role="navigation"
+          aria-label="Páginas de la tienda"
+        ></div>
+      </div>
+    </section>
+
+    <!-- CÓMO PEDIR: 3 pasos. Editá los textos libremente. -->
+    <section id="como">
+      <div class="w">
+        <h2>¿Cómo pedir un producto personalizado?</h2>
+        <ol class="pasos">
+          <li>
+            <h3>Enviame tu idea</h3>
+            <p>
+              Una referencia, una frase, un nombre, una foto de tu perrijo...
+            </p>
+          </li>
+          <li>
+            <h3>La diseño con vos</h3>
+            <p>
+              Te muestro la propuesta y elijo el producto y la ubicación que
+              mejor la lleven.
+            </p>
+          </li>
+          <li>
+            <h3>La produzco</h3>
+            <p>
+              La hago con todos los detalles y te la envío lista para llevar.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Los textos están en el script (listas ENVIOS y FAQ): editalos ahí. -->
+    <section class="alt" id="info">
+      <div class="w">
+        <h2>Envíos, pagos y preguntas</h2>
+        <div class="info-cards" id="envios"></div>
+        <div class="faq" id="faq"></div>
+      </div>
+    </section>
+
+    <!-- PIE: llamado final + botón a Instagram.  -->
+    <footer>
+      <div class="w">
+        <h2>¿Qué te gusta?</h2>
+        <p style="margin: 14px 0 24px">
+          Escribime y hacemos que lo puedas llevar con vos.
+        </p>
+        <a
+          class="btn"
+          href="https://www.instagram.com/jesiestudio_"
+          target="_blank"
+          rel="noopener"
+          >Escribime por Instagram</a
+        >
+        <p class="pie">
+          Jesi · estudio creativo · Un respiro entre tanto scroll.
+        </p>
+      </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP: lo activa el script si WHATSAPP tiene tu número. -->
+    <a
+      class="wafloat"
+      id="wafloat"
+      hidden
+      target="_blank"
+      rel="noopener"
+      href="#"
+      aria-label="Escribime por WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+        />
+      </svg>
+    </a>
+
+    <!-- CARRITO: lista de ítems, total, comentarios, datos de transferencia y botones para enviar el pedido. Se completa solo desde el script. -->
+    <aside id="cart" aria-label="Carrito" aria-hidden="true">
+      <header>
+        <h2 style="font-size: 1.6rem">Tu pedido</h2>
+        <button class="btn o" id="cx" type="button">
+          Cerrar y seguir viendo
+        </button>
+      </header>
+      <div class="bd">
+        <div id="items"></div>
+        <div class="tot"><span>Total</span><span id="tt">$0</span></div>
+        <small>Envío a coordinar, no incluido en el total.</small>
+        <label
+          >Comentarios (colores, ideas, dirección de envío)<textarea
+            id="nt"
+            rows="3"
+          ></textarea>
+        </label>
+        <div id="pay">
+          <h3 style="font-size: 1.25rem; margin-bottom: 6px">
+            Pago por transferencia
+          </h3>
+          <p id="bank" style="font-size: 0.95rem"></p>
+          <label
+            >Tu pedido, listo para enviarme<textarea
+              id="ord"
+              rows="6"
+              readonly
+            ></textarea>
+          </label>
+        </div>
+        <button class="btn" id="cp" type="button">Copiar pedido</button>
+        <a
+          class="btn o"
+          href="https://www.instagram.com/jesiestudio_"
+          target="_blank"
+          rel="noopener"
+          >Enviarlo por Instagram</a
+        >
+        <a class="btn o" id="wa" href="#" hidden target="_blank" rel="noopener"
+          >Enviarlo por WhatsApp</a
+        >
+        <small id="ok" role="status"></small>
+      </div>
+    </aside>
+    <!-- VENTANA DEL PRODUCTO (modal): se abre al tocar la foto o el nombre de un producto, o "Agregar al carrito" si hay que elegir opciones.
+         Adentro se muestra el detalle completo (fotos grandes, descripción, talle, color, diseño...). La llena el script. -->
+    <dialog id="pm" aria-label="Detalle del producto">
+      <button class="pmx" id="pmx" type="button" aria-label="Cerrar">×</button>
+      <div id="pmc"></div>
+    </dialog>
+
+    <!-- VENTANA de tabla de talles (se llena desde T en el script). -->
+    <dialog id="tb">
+      <div id="tbc"></div>
+      <button
+        class="btn"
+        type="button"
+        onclick="this.closest('dialog').close()"
+      >
+        Cerrar y seguir viendo
+      </button>
+    </dialog>
+
+    <script>
+      // =====================  SCRIPT (JavaScript)  =====================
+      // 1) DATOS DE PAGO: completá entre comillas. Se muestran en el carrito.
+      //    ALIAS="jesi.estudio"  CBU="0000..."  TITULAR="Nombre Apellido"
+      //    WHATSAPP = tu número con código de país, sin + ni espacios (ej. "5491112345678"). Vacío = el botón no aparece.
+      /* Datos de transferencia: completalos y se muestran en el carrito. WhatsApp: número con código de país, sin + (ej. 5491112345678). */
+      var ALIAS = "jesiacostamp",
+        CBU = "0000003100037828955296",
+        TITULAR = "Jesica Daiana Acosta",
+        WHATSAPP = "541173639842";
+      // 2) UTILIDADES: fmt() da formato de precio ($12.000), $() es un atajo para buscar elementos.
+      const fmt = (n) => "$" + n.toLocaleString("es-AR"),
+        $ = (s) => document.querySelector(s);
+      // 3) UNIVERSOS (solo decorativos): son los lomos de libros de la portada. NO filtran nada ni son botones.
+      //    Para agregar uno: sumá el nombre acá Y un color nuevo .t8 en el CSS. El orden define el color de cada lomo.
+      const TAGS = [
+        "Literatura",
+        "Series",
+        "Música",
+        "Cine",
+        "Arte",
+        "Videojuegos",
+        "Nostalgia",
+        "Tu universo",
+      ];
+      // 3b) TIPOS DE PRODUCTO: son los botones de filtro de la tienda. Cada producto elige uno con  tipo:"id".
+      //     id = palabra clave (la que va en tipo:)   t = texto del botón   d = frase corta que se ve al elegirlo (opcional)
+      //     Para agregar un tipo nuevo: sumá una línea acá y usá su id en los productos. El orden es el de los botones.
+      //     "servicios" y "contacto" son especiales: no muestran productos sino un panel de texto (ver SERVICIOS más abajo).
+      const IG = "https://www.instagram.com/jesiestudio_";
+      const TIPOS = [
+        {
+          id: "indumentaria",
+          t: "Indumentaria",
+          d: "Remeras, buzos, camperas, tote bags y todo lo que es de tela.",
+        },
+        {
+          id: "agendas",
+          t: "Cuadernos y Papeleria ",
+          d: "Todo personalizado para tu escritorio, tu agenda o tu cuaderno.",
+        },
+        { id: "tazas", t: "Tazas", d: "Tazas de cerámica." }, // cuando sumes termos, ponelos con tipo:"tazas" y cambiá esta frase
+        {
+          id: "impresiones",
+          t: "Impresiones",
+          d: "Planchas DTF textil y DTF UV.",
+        },
+        { id: "velas", t: "Velas", d: "Velas de soja hechas a mano." },
+        { id: "servicios", t: "Servicios" },
+        { id: "contacto", t: "Contacto" },
+      ];
+      // 3c) SERVICIOS: resumen básico que se ve en el botón "Servicios". Editá, sumá o borrá bloques libremente.
+      const SERVICIOS = [
+        {
+          t: "Bajada de plancha",
+          d: "Aplico tu diseño sobre tus prendas o productos. Consultame según la cantidad.",
+        },
+        {
+          t: "Edición de videos",
+          d: "Edición de videos a pedido. Podés ver algunos ejemplos en mi portfolio.",
+          portfolio: "https://jesiedicion.netlify.app/",
+        },
+        {
+          t: "Creación de webs",
+          d: "¿Te gusta esta web? Puedo hacer la tuya, a tu medida.",
+          portfolio: "https://jesiedicion.netlify.app/",
+        },
+      ];
+      // 4) COLORES DISPONIBLES. ["Nombre","#hex"]. C6 = buzos y camperas, C16 = remeras 24.1 unisex.
+      //    Para una paleta nueva: const MIS=[["Rojo","#D62828"],...] y usala como c:MIS en el producto.
+      const C6 = [
+        ["Rojo", "#D62828"],
+        ["Azul francia", "#2F6FD0"],
+        ["Azul marino", "#14213D"],
+        ["Negro", "#1A1A1A"],
+        ["Gris melange", "#B9B9B9"],
+        ["Blanco", "#FFFFFF"],
+      ];
+      const C16 = [
+        ["Azul noche", "#12213A"],
+        ["Bordó", "#7B1426"],
+        ["Marrón", "#5A3425"],
+        ["Negro", "#151515"],
+        ["Crudo", "#F1EBDD"],
+        ["Blanco", "#FFFFFF"],
+      ];
+      // 5) TABLAS DE TALLES (cm). l = largo, a = ancho, de talle 1 al 5. Se usan con t:"uni" / "muj" / "buzo" en una variante.
+      //    Para otra tabla: sumá una clave nueva (ej. nino:{t:"Título",l:[...],a:[...],n:"nota"}).
+      const T = {
+        uni: {
+          t: "Remera algodón peinado 24.1 unisex",
+          l: [65, 69, 71, 73, 76],
+          a: [48, 49, 51, 54, 56],
+          n: "Las medidas pueden variar ±1 cm.",
+        },
+        muj: {
+          t: "Remera algodón peinado 24.1 corte mujer",
+          l: [57, 60, 62, 64, 68],
+          a: [41, 43, 45, 47, 51],
+          n: "Los talles pueden variar unos cm.",
+        },
+        buzo: {
+          t: "Buzo cuello redondo invisible",
+          l: [62, 64, 67, 72, 73],
+          a: [50, 56, 59, 61, 62],
+          n: "Largo: del punto más alto del hombro a la base. Ancho: de axila a axila.",
+        },
+        unico: {
+          t: "Talle único",
+          l: [37],
+          a: [41],
+          n: "Este producto tiene un solo tamaño.",
+        },
+      };
+      // 6) VARIANTES REUTILIZABLES (se usan en varios productos). Una variante es un modelo/tamaño con su propio precio:
+      //    n = nombre visible | p = precio (sin p = "A consultar") | s = talles | c = colores | t = tabla de talles | nota = aviso
+      const UNI = {
+        // remera unisex 24.1
+        n: "Unisex",
+        p: 25000,
+        s: ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL", "7XL"],
+        c: C16,
+        t: "uni",
+      };
+      const MUJ = {
+        // remera corte mujer 24.1
+        n: "Corte mujer",
+        p: 22000,
+        s: ["S", "M", "L", "XL"],
+        t: "muj",
+        nota: "El color de este modelo lo coordinamos al confirmar el pedido.",
+      };
+      const UNICO = {
+        c: C6, // colores disponibles
+        t: "unico",
+      };
+      // Buzos y camperas: talles S–XL con 6 colores. bz(nombre, precio, tablaOpcional) arma la variante.
+      const SX = ["S", "M", "L", "XL"],
+        bz = (n, p, t) => ({ n, p, s: SX, c: C6, t });
+      // FOTOS DE PRODUCTOS (el carrusel de cada tarjeta):
+      //  1. Creá una carpeta llamada  fotos  al lado de este index.html.
+      //  2. Guardá ahí las fotos con el nombre del producto + número:  remera-jane-austen-1.jpg, remera-jane-austen-2.jpg ...
+      //  3. En el producto, im: fotos("remera-jane-austen")  las toma solas (por defecto busca 3 fotos .jpg).
+      //     Para otra cantidad: fotos("nombre", 5). Si una foto no existe, simplemente no aparece (no se rompe nada).
+      //     Si usás otro formato (png, webp) o nombres distintos, listalas a mano: im: ["fotos/a.png", "fotos/b.webp"]
+      //  Tip: fotos cuadradas, de 1000x1000 px aprox., livianas (menos de 300 KB cada una).
+      const fotos = (s, n = 3) =>
+        Array.from({ length: n }, (_, i) => `fotos/${s}-${i + 1}.jpg`);
+      // dis: true  → la tarjeta muestra el campo "Diseño" (obligatorio): la clienta escribe cuál querés de los que viste en tus redes.
+      //              Aparece también un link "Ver más diseños en Instagram" (el de IG, o el que pongas en  redes: "https://..."  del producto).
+      //              Sin dis: true, el producto se vende tal cual, como siempre.
+      // 7) PRODUCTOS. Cada producto es un bloque entre llaves { }, separados por coma.
+      //    CAMPOS:
+      //      n:  nombre            tipo: "indumentaria" | "agendas" | "tazas" | "impresiones" | "velas"  (en qué botón de la tienda aparece)     d: descripción
+      //      v:  [variantes]       (modelos/tamaños/precios; si hay más de una, el cliente elige)
+      //      im: fotos("slug")  → usa fotos/slug-1.jpg, slug-2.jpg, slug-3.jpg (ver FOTOS más arriba). O a mano: im:["fotos/a.jpg","fotos/b.png"]
+      //    PARA AGREGAR: copiá un bloque, pegalo antes del ] final y cambiá los datos.
+      //    PARA QUITAR: borrá el bloque completo (desde { hasta },).
+      //    PARA OCULTAR SIN BORRAR: poné // al principio de cada línea del bloque.
+      //    Variante propia: {n:"A5",p:15000}. Con talles: {n:"Unisex",p:21000,s:["S","M"],c:C6}.
+      //    EJEMPLO listo para copiar:
+      //    {n:"Taza Ejemplo",g:["Series"],d:"Descripción corta.",im:["fotos/taza1.jpg","fotos/taza2.jpg"],v:[{n:"Cerámica",p:12000}]},
+      const P = [
+        {
+          n: "Remeras literarias, corte de remera de mujer.",
+          dis: true,
+          im: [
+            "img/ESTAMPAS/LITERARIAS/orgullo-n.jpg",
+            "img/ESTAMPAS/LITERARIAS/ORGULLO3.png",
+            "img/ESTAMPAS/LITERARIAS/lit.png",
+          ],
+          tipo: "indumentaria",
+          d: "Remeras de algodón peinado, corte más al cuerpo, ideal para un look moderno.",
+          v: [MUJ],
+        },
+        {
+          n: "Remeras corte clásico, unisex | Rock",
+          dis: true,
+          im: ["img/ESTAMPAS/ROCK/indio-b.jpg", "img/ESTAMPAS/ROCK/stones.png"],
+          tipo: "indumentaria",
+          d: "Remera de calidad premium confeccionada en algodón peinado 24.1, la opción más equilibrada entre suavidad, frescura y durabilidad.",
+          v: [UNI],
+        },
+        {
+          n: "Musculosa Baby Tee de algodón 100% ",
+          dis: true,
+          im: ["img/ESTAMPAS/LITERARIAS/romantasy-crop.jpg"],
+          tipo: "indumentaria",
+          d: "Remera de algodón 100% peinado 20.1, con mayor gramaje y cuerpo.",
+          v: [{ ...UNICO, p: 22000 }],
+        },
+        {
+          n: "Buzo canguro, diseño personalizado.",
+          dis: true,
+          im: ["img/canguro.jpg"],
+          tipo: "indumentaria",
+          d: "Buzo canguro de friza clásica con el diseño que me pidas. Contame tu idea y la armamos.",
+          v: [bz("Unisex", 45000, "buzo")],
+        },
+        {
+          n: "Tote Bags Personalizadas",
+          dis: true,
+          im: ["img/tote/TOTE-MESSI.jpg", "img/tote/TOTE-PASTOR.jpg"],
+          tipo: "indumentaria",
+          d: "Tote de lienzo crudo con la lista de lo que más querés. Elegí la estampa que más te guste.",
+          v: [{ n: "35x40, diseño 31x34", p: 15000 }],
+        },
+        {
+          n: "Taza de cerámica personalizada",
+          dis: true,
+          im: ["img/tazas/2.jpg", "img/tazas/1.jpg", "img/tazas/3.jpg"],
+          tipo: "tazas",
+          d: "Taza de cerámica personalizada con tu diseño. Puede ir con foto, ilustración y/o texto.",
+          v: [{ n: "Cerámica", p: 12000 }],
+        },
+        {
+          n: "Cuaderno A5 anillado ",
+          im: [
+            "img/CUADERNOSA5/1.jpg",
+            "img/CUADERNOSA5/2.png",
+            "img/CUADERNOSA5/3.png",
+            "img/CUADERNOSA5/4.jpg",
+            "img/CUADERNOSA5/6.jpg",
+          ],
+          tipo: "agendas",
+          d: "Cuaderno de tapa dura diseñado por mí, anillado y con elástico. 100 hojas interiores de 90gr.",
+          v: [
+            { n: "A5", p: 15500 },
+            { n: "A4", p: 19900 },
+          ],
+        },
+        {
+          n: "Señaladores",
+          im: [
+            "img/SEÑALADORES/Floral.jpg",
+            "img/SEÑALADORES/2.jpg",
+            "img/SEÑALADORES/3.jpg",
+          ],
+          tipo: "agendas",
+          d: "Señaladores personalizados. Cada pack trae 5. Se pueden plastificar o imantar. Los 5 diseños pueden ser distintos o iguales, contame qué querés.",
+          v: [
+            { n: "Pack x5 simples", p: 4500 },
+            { n: "Pack x5 plastificados", p: 5500 },
+            { n: "Pack x5 imantados dobles", p: 9000 },
+          ],
+        },
+        {
+          n: "Planchas DTF UV",
+          im: ["img/DTF-UV/Uv.JPG", "img/DTF-UV/Uv1.png"],
+          tipo: "impresiones",
+          d: "Planchas de diseños para pegar en lo que quieras. Contame qué necesitás y te paso el presupuesto.",
+          v: [{ n: "Tamaño A4" }, { n: "Tamaño A5" }],
+        },
+        {
+          n: "Vela de soja en frasco",
+          tipo: "velas",
+          im: ["img/VELAS/velas.png"],
+          d: "Vela de soja hecha a mano, en frasco de vidrio de 200 cc. Consultame los aromas disponibles.",
+          v: [
+            {
+              n: "200 cc",
+              p: 13000,
+              aroma: [
+                { n: "Vainilla" },
+                { n: "Naranja Pimienta" },
+                { n: "Café" },
+                { n: "Tilo Lavanda" },
+              ],
+            },
+          ],
+        },
+      ];
+      // 7b) PRODUCTOS EN STOCK
+      const STOCK = [
+        {
+          n: "Canguro rústico Malvinas",
+          im: ["img/stock/malvinas.jpg", "img/stock/remera-taylor-2.jpg"],
+          d: "Última unidad, ya lista para enviar.",
+          v: [{ n: "Unisex", p: 18000, s: "L", c: "Azul marino" }],
+        },
+        {
+          n: "Cuaderno de lecturas artesanal, tapa de tela, ",
+          im: [
+            "img/stock/LECTURAS1.jpg",
+            "img/stock/LECTURAS2.jpg",
+            "img/stock/LECTURAS3.jpg",
+          ],
+          d: "Tapa de tela, interior de papel ahuesado, para llenar de tus registros de lecturas.",
+          v: [{ p: 15000 }],
+        },
+      ];
+      // 8) FOTOS DE EJEMPLO: genera una imagen provisoria. Se usa solo si el producto no tiene im:[...].
+      function ph(i, n) {
+        const h = [350, 20, 150, 40][i % 4];
+        return (
+          "data:image/svg+xml," +
+          encodeURIComponent(
+            `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect width='400' height='400' fill='hsl(${h} 35% ${i % 2 ? 82 : 90}%)'/><text x='200' y='195' text-anchor='middle' font-family='Georgia' font-size='24' fill='#b0496b'>${n}</text><text x='200' y='232' text-anchor='middle' font-family='Georgia' font-size='18' fill='#b0496b' opacity='.6'>foto ${i + 1}</text></svg>`,
+          )
+        );
+      }
+      // 9) CARRITO: guarda los ítems en el navegador del cliente para que no se pierdan al recargar. total() suma precio x cantidad.
+      let cart = [];
+      try {
+        cart = JSON.parse(localStorage.getItem("jc") || "[]");
+      } catch (e) {}
+      const total = () => cart.reduce((a, x) => a + x.p * x.q, 0);
+      // Dibuja el carrito (ítems, cantidades, total), arma el texto del pedido para copiar y completa alias/CBU. Editá el texto del pedido en la variable o.
+      function paint() {
+        try {
+          localStorage.setItem("jc", JSON.stringify(cart));
+        } catch (e) {}
+        $("#cn").textContent = cart.reduce((a, x) => a + x.q, 0);
+        $("#tt").textContent = fmt(total());
+        $("#items").innerHTML = cart.length
+          ? cart
+              .map(
+                (x, i) =>
+                  `<div class="it"><b>${x.n}${x.st ? " (en stock)" : ""}</b><span>${fmt(x.p * x.q)}</span><small>${[x.v, x.s && "Talle " + x.s, x.c && "Color " + x.c, x.dis && "Diseño " + x.dis].filter(Boolean).join(" · ")} · ${fmt(x.p)} c/u</small><span class="q"><button type="button" data-a="-" data-i="${i}" aria-label="Quitar uno">−</button> ${x.q} <button type="button" data-a="+" data-i="${i}" aria-label="Sumar uno">+</button></span></div>`,
+              )
+              .join("")
+          : "<p>Tu carrito está vacío.</p>";
+        const L = cart.map(
+          (x) =>
+            `• ${x.q} x ${x.n}${x.st ? " [EN STOCK]" : ""} (${[x.v, x.s && "talle " + x.s, x.c && "color " + x.c, x.dis && "diseño " + x.dis].filter(Boolean).join(", ")}) = ${fmt(x.p * x.q)}`,
+        );
+        const o = `Hola Jesi, quiero hacer este pedido:\n${L.join("\n")}\nTotal: ${fmt(total())} (envío a coordinar)${$("#nt").value ? "\nComentarios: " + $("#nt").value : ""}\nPago por transferencia, te mando el comprobante.`;
+        $("#ord").value = cart.length ? o : "";
+        $("#cp").disabled = !cart.length;
+        $("#bank").textContent =
+          ALIAS || CBU
+            ? `Transferí ${fmt(total())} a: alias ${ALIAS}, CBU ${CBU}, titular ${TITULAR}. Después mandame el comprobante junto con el pedido.`
+            : "Escribime con tu pedido y te paso el alias y el CBU para la transferencia. Después me mandás el comprobante.";
+        if (WHATSAPP) {
+          const a = $("#wa");
+          a.href =
+            "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(o);
+          a.hidden = false;
+        }
+      }
+      // Abre/cierra el carrito. Los botones +/− de cada ítem están en $("#items").onclick.
+      function cartOpen(v) {
+        $("#cart").classList.toggle("on", v);
+        $("#cart").setAttribute("aria-hidden", !v);
+      }
+      $("#cb").onclick = () => cartOpen(true);
+      $("#cx").onclick = () => cartOpen(false);
+      $("#nt").oninput = paint;
+      $("#items").onclick = (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const x = cart[+b.dataset.i];
+        x.q += b.dataset.a == "+" ? 1 : -1;
+        if (x.q < 1) cart.splice(+b.dataset.i, 1);
+        paint();
+      };
+      $("#cp").onclick = async () => {
+        const t = $("#ord");
+        t.select();
+        try {
+          await navigator.clipboard.writeText(t.value);
+          $("#ok").textContent = "Pedido copiado. Pegalo en el mensaje.";
+        } catch (e) {
+          document.execCommand && document.execCommand("copy");
+          $("#ok").textContent =
+            "Seleccioné el texto: copialo y pegalo en el mensaje.";
+        }
+      };
+      // Abre la ventana con la tabla de talles de la clave pedida (uni, muj, buzo...).
+      function table(k) {
+        const t = T[k];
+        $("#tbc").innerHTML =
+          `<h3>${t.t}</h3><table><tr><th>Talle</th>${[1, 2, 3, 4, 5].map((i) => `<th>${i}</th>`).join("")}</tr><tr><th>Largo</th>${t.l.map((x) => `<td>${x}</td>`).join("")}</tr><tr><th>Ancho</th>${t.a.map((x) => `<td>${x}</td>`).join("")}</tr></table><small>Medidas en cm, talles 1 al 5. ${t.n} Si tu talle no está en la tabla, escribime.</small><p></p>`;
+        $("#tb").showModal();
+      }
+      // Si una foto no existe (todavía no la subiste), se saca del carrusel. Si no queda ninguna, se muestra una imagen de ejemplo.
+      function noFoto(img) {
+        const c = img.parentNode,
+          n = img.dataset.n;
+        img.remove();
+        if (!c.children.length)
+          c.innerHTML = `<img src="${ph(0, n)}" alt="${n}">`;
+      }
+      // 10) TARJETA DE PRODUCTO: carrusel, descripción, selectores de modelo/talle/color, precio y botón.
+      //     Valida que elijan talle y color antes de agregar. Si la variante no tiene precio, el botón lleva a Instagram.
+      function detalle(p, st) {
+        // DETALLE COMPLETO del producto (es lo que se ve dentro de la ventana/modal)
+        // st = true cuando es un producto de la sección "En stock"
+        const el = document.createElement("article");
+        el.className = st ? "card stock" : "card"; // los de stock llevan la clase "stock" (resaltados)
+        let vi = 0,
+          sz = "",
+          co = "",
+          dv = ""; // diseño que escribió la clienta (solo productos con dis: true)
+        el.innerHTML = `<div class="cw">${st ? '<span class="badge">Listo para retirar</span>' : ""}<div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" data-n="${p.n}" onerror="noFoto(this)" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3>${p.n}</h3><p>${p.d}</p><div class="opt"></div></div>`;
+        const car = el.querySelector(".car"),
+          o = el.querySelector(".opt");
+        el.querySelector(".pv").onclick = () =>
+          car.scrollBy({ left: -car.clientWidth, behavior: "smooth" });
+        el.querySelector(".nx").onclick = () =>
+          car.scrollBy({ left: car.clientWidth, behavior: "smooth" });
+        function draw() {
+          const v = p.v[vi];
+          // En stock el talle y el color son FIJOS: se toman de la variante y no se le pregunta nada al cliente.
+          if (st) {
+            sz = v.s ? (Array.isArray(v.s) ? v.s[0] : v.s) : "";
+            co = v.c ? (Array.isArray(v.c) ? v.c[0][0] : v.c) : "";
+          }
+          o.style.cssText =
+            "display:flex;flex-direction:column;gap:10px;flex:1";
+          o.innerHTML =
+            (p.v.length > 1
+              ? `<label>Modelo<select class="vs">${p.v.map((x, i) => `<option value="${i}"${i == vi ? " selected" : ""}>${x.n}</option>`).join("")}</select></label>`
+              : "") +
+            (st && (sz || co)
+              ? `<div class="fx">${[sz && "Talle " + sz, co && "Color " + co].filter(Boolean).join(" · ")}</div>`
+              : "") +
+            (!st && v.s
+              ? `<label>Talle<select class="ss"><option value="">Elegí tu talle</option>${v.s.map((x) => `<option>${x}</option>`).join("")}</select></label><small>Talles ${v.s[0]} al ${v.s[v.s.length - 1]}.</small>`
+              : "") +
+            (!st && v.c
+              ? `<div class="cl" role="group" aria-label="Color">${v.c.map(([n, h]) => `<button type="button" class="sw" title="${n}" aria-label="${n}" data-n="${n}" style="background:${h}"></button>`).join("")}</div><small class="cn">Color: elegí uno</small>`
+              : "") +
+            (p.dis && !st
+              ? `<label>Diseño<input class="dsg" type="text" maxlength="120" placeholder="Elegí uno de los publicados o contame tu idea luego" value="${dv.replace(/"/g, "&quot;")}"></label><a class="lkd" href="${p.redes || IG}" target="_blank" rel="noopener">Ver más diseños en Instagram</a>`
+              : "") +
+            (v.nota ? `<small>${v.nota}</small>` : "") +
+            (v.t
+              ? `<button type="button" class="lk">Ver tabla de talles</button>`
+              : "") +
+            `<div class="pr">${v.p ? fmt(v.p) : "A consultar"}</div><button type="button" class="btn add">${v.p ? "Agregar al carrito" : "Consultar por Instagram"}</button><small class="er" role="alert"></small>`;
+          const q = (s) => o.querySelector(s),
+            vs = q(".vs");
+          if (vs)
+            vs.onchange = () => {
+              vi = +vs.value;
+              sz = co = "";
+              draw();
+            };
+          const ss = q(".ss");
+          if (ss) ss.onchange = () => (sz = ss.value);
+          o.querySelectorAll(".sw").forEach(
+            (b) =>
+              (b.onclick = () => {
+                co = b.dataset.n;
+                o.querySelectorAll(".sw").forEach((x) =>
+                  x.classList.toggle("on", x == b),
+                );
+                q(".cn").textContent = "Color: " + co;
+              }),
+          );
+          const di = q(".dsg");
+          if (di) di.oninput = () => (dv = di.value);
+          const lk = q(".lk");
+          if (lk) lk.onclick = () => table(v.t);
+          q(".add").onclick = () => {
+            const e = q(".er");
+            if (!v.p) {
+              open("https://www.instagram.com/jesiestudio_", "_blank");
+              return;
+            }
+            if (v.s && !sz) {
+              e.textContent = "Elegí un talle antes de agregar.";
+              return;
+            }
+            if (v.c && !co) {
+              e.textContent = "Elegí un color antes de agregar.";
+              return;
+            }
+
+            e.textContent = "";
+            const dd = p.dis && !st ? dv.trim() || "a consultar" : "",
+              k = [p.n, v.n, sz, co, st ? "S" : "", dd.toLowerCase()].join("|"),
+              it = cart.find((x) => x.k == k);
+            it
+              ? it.q++
+              : cart.push({
+                  k,
+                  n: p.n,
+                  v: p.v.length > 1 || v.n != "Cerámica" ? v.n : "",
+                  s: sz,
+                  c: co,
+                  p: v.p,
+                  q: 1,
+                  st: !!st,
+                  dis: dd,
+                });
+            paint();
+            const dlg = el.closest("dialog"); // si se agregó desde la ventana del producto, la cierra
+            if (dlg) dlg.close();
+            cartOpen(true);
+          };
+        }
+        draw();
+        return el;
+      }
+      // 10b) TARJETA de la tienda: fotos (carrusel), nombre, descripción, precio y botón. Talle, color, diseño y tabla de talles se eligen en la ventana (modal) del producto.
+      //      Si el producto tiene varios precios muestra "Desde $X". El botón "Agregar al carrito" abre la ventana cuando
+      //      hay que elegir algo (talle, color, modelo, diseño) y agrega directo cuando no hace falta (ej: señaladores).
+      const precioCard = (p) => {
+        const ps = p.v.map((v) => v.p).filter(Boolean);
+        if (!ps.length) return "A consultar";
+        const min = Math.min(...ps);
+        return (ps.some((x) => x !== min) ? "Desde " : "") + fmt(min);
+      };
+      const necesitaOpciones = (p, st) => {
+        if (!p.v.some((v) => v.p)) return false; // sin precio: el botón lleva directo a Instagram
+        const v0 = p.v[0];
+        return !!(p.dis && !st) || p.v.length > 1 || (!st && !!(v0.s || v0.c));
+      };
+      function abrirModal(p, st) {
+        $("#pmc").replaceChildren(detalle(p, st));
+        $("#pm").showModal();
+      }
+      function card(p, st) {
+        const el = document.createElement("article");
+        el.className = st ? "card stock" : "card";
+        el.innerHTML = `<div class="cw">${st ? '<span class="badge">Listo para retirar</span>' : ""}<div class="car">${(p.im || [ph(0, p.n), ph(1, p.n), ph(2, p.n)]).map((s, i) => `<img src="${s}" alt="${p.n}, foto ${i + 1}" data-n="${p.n}" onerror="noFoto(this)" loading="lazy">`).join("")}</div><button class="pv" type="button" aria-label="Foto anterior">‹</button><button class="nx" type="button" aria-label="Foto siguiente">›</button></div><div class="b"><h3><button class="tit" type="button">${p.n}</button></h3><p>${p.d}</p>${p.dis && !st ? `<a class="lkd" href="${p.redes || IG}" target="_blank" rel="noopener">Ver más diseños en Instagram</a>` : ""}<div class="pr">${precioCard(p)}</div><button type="button" class="btn add">${p.v.some((v) => v.p) ? "Agregar al carrito" : "Consultar por Instagram"}</button></div>`;
+        const car = el.querySelector(".car");
+        el.querySelector(".pv").onclick = () =>
+          car.scrollBy({ left: -car.clientWidth, behavior: "smooth" });
+        el.querySelector(".nx").onclick = () =>
+          car.scrollBy({ left: car.clientWidth, behavior: "smooth" });
+        car.onclick = el.querySelector(".tit").onclick = () =>
+          abrirModal(p, st); // tocar la foto o el nombre abre la ventana
+        el.querySelector(".add").onclick = () =>
+          necesitaOpciones(p, st)
+            ? abrirModal(p, st)
+            : detalle(p, st).querySelector(".add").click();
+        return el;
+      }
+      $("#pm").onclick = (e) => {
+        if (e.target === $("#pm")) $("#pm").close(); // clic fuera de la ventana = cerrar
+      };
+      $("#pmx").onclick = () => $("#pm").close();
+      // 11) FILTRO Y PÁGINAS DE LA TIENDA.
+      //     POR_PAGINA = cuántos productos se ven por página según el ancho de pantalla. Cambiá los números si querés otra cantidad:
+      //       compu (más de 900 px): 9 = 3 filas x 3 columnas | tablet: 6 = 3 filas x 2 columnas | celular: 4 = 4 filas x 1 columna
+      //     Si hay más productos, abajo aparecen páginas (1 2 3 ...) y se van sumando solas.
+      const POR_PAGINA = { compu: 9, tablet: 6, celu: 4 };
+      const porPagina = () =>
+        innerWidth <= 700
+          ? POR_PAGINA.celu
+          : innerWidth <= 900
+            ? POR_PAGINA.tablet
+            : POR_PAGINA.compu;
+      let tag = "",
+        pag = 0;
+      // show(tipo, página): muestra los productos de ese tipo ("" = todos). "servicios" y "contacto" muestran un panel de texto.
+      function show(t, pg = 0) {
+        tag = t;
+        document
+          .querySelectorAll(".tag,.sn")
+          .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t == t));
+        const g = $("#grid");
+        $("#tipodesc").textContent =
+          (TIPOS.find((x) => x.id === t) || {}).d || "";
+        $("#pager").innerHTML = "";
+        if (t === "servicios") {
+          g.innerHTML =
+            '<p class="svc-intro">Además de los productos, hago estos trabajos. Escribime y te cuento cómo es.</p>' +
+            SERVICIOS.map(
+              (s) =>
+                `<div class="svc"><h3>${s.t}</h3><p>${s.d}</p><div class="svc-btns"><a class="btn" href="${IG}" target="_blank" rel="noopener">Consultar</a>${s.portfolio ? `<a class="btn o" href="${s.portfolio}" target="_blank" rel="noopener">Ver portfolio</a>` : ""}</div></div>`,
+            ).join("");
+          return;
+        }
+        if (t === "contacto") {
+          g.innerHTML = `<div class="svc"><h3>Escribime</h3><p>Para pedidos, consultas o trabajos especiales. Te respondo por mensaje.</p><div class="svc-btns"><a class="btn" href="${IG}" target="_blank" rel="noopener">Instagram</a>${WHATSAPP ? `<a class="btn o" href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a>` : ""}</div></div>`;
+          return;
+        }
+        const l = P.filter((p) => !t || p.tipo === t),
+          n = porPagina(),
+          paginas = Math.max(1, Math.ceil(l.length / n));
+        pag = Math.min(pg, paginas - 1);
+        g.replaceChildren(
+          ...l.slice(pag * n, (pag + 1) * n).map((p) => card(p)),
+        );
+        if (!l.length) {
+          g.innerHTML =
+            '<p class="vacio">Todavía no hay productos en esta categoría. Escribime y lo vemos.</p>';
+        }
+        if (paginas > 1) {
+          let h = `<button type="button" data-p="${pag - 1}" aria-label="Página anterior"${pag === 0 ? " disabled" : ""}>‹</button>`;
+          for (let i = 0; i < paginas; i++)
+            h += `<button type="button" data-p="${i}" aria-label="Página ${i + 1}"${i === pag ? ' aria-current="page"' : ""}>${i + 1}</button>`;
+          h += `<button type="button" data-p="${pag + 1}" aria-label="Página siguiente"${pag === paginas - 1 ? " disabled" : ""}>›</button>`;
+          $("#pager").innerHTML = h;
+        }
+      }
+      // Cambiar de página: vuelve al principio de la tienda.
+      $("#pager").onclick = (e) => {
+        const b = e.target.closest("button");
+        if (!b || b.disabled) return;
+        show(tag, +b.dataset.p);
+        $("#tienda").scrollIntoView();
+      };
+      // Si cambia el tamaño de la pantalla (ej. girar el celular), recalcula las páginas sin perder el lugar.
+      let ultimoN = porPagina();
+      addEventListener("resize", () => {
+        const n = porPagina();
+        if (n === ultimoN) return;
+        const primero = pag * ultimoN;
+        ultimoN = n;
+        if (tag !== "servicios" && tag !== "contacto")
+          show(tag, Math.floor(primero / n));
+      });
+      // 12) Arma los botones de filtro de la tienda y el menú de la barra superior (a partir de TIPOS), y los lomos decorativos de la portada (a partir de TAGS).
+      const botonesTipo = (cls) =>
+        [{ id: "", t: "Todo" }, ...TIPOS]
+          .map(
+            (x) =>
+              `<button class="${cls}" type="button" data-t="${x.id}" aria-pressed="false">${x.t}</button>`,
+          )
+          .join("");
+      $("#tags").innerHTML = botonesTipo("tag");
+      $("#tags").onclick = (e) => {
+        const b = e.target.closest(".tag");
+        if (b) show(b.dataset.t);
+      };
+      // MENÚ de la barra superior: al elegir una categoría, la muestra, baja a la tienda y (en celular) cierra el menú.
+      $("#subnav .w").innerHTML = botonesTipo("sn");
+      const menu = $("#subnav"),
+        botonMenu = $("#tm");
+      const cerrarMenu = () => {
+        menu.classList.remove("open");
+        botonMenu.setAttribute("aria-expanded", "false");
+      };
+      botonMenu.onclick = () =>
+        botonMenu.setAttribute("aria-expanded", menu.classList.toggle("open"));
+      menu.onclick = (e) => {
+        const b = e.target.closest(".sn");
+        if (!b) return;
+        show(b.dataset.t);
+        cerrarMenu();
+        $("#tienda").scrollIntoView();
+      };
+      $("#pila").innerHTML = TAGS.map(
+        (t, i) => `<li><span class="t${i}">${t}</span></li>`,
+      ).join("");
+      // 12b) ENVÍOS, PAGOS Y PREGUNTAS FRECUENTES. Editá los textos libremente (revisalos: son una base general).
+      //      ENVIOS = las 3 tarjetas de arriba.   FAQ = preguntas desplegables. Para sumar una pregunta, copiá un bloque { q, a }.
+      const ENVIOS = [
+        {
+          t: "Pagos",
+          d: "Pagás por transferencia. Al armar tu pedido ves el total y los datos, y me mandás el comprobante por mensaje. En la web no se cobra nada asi que tranqui.",
+        },
+        {
+          t: "Envíos",
+          d: "Hago envíos. El costo depende del destino y lo coordinamos por mensaje antes de pagar. (No está incluido en el total del carrito!)",
+        },
+        {
+          t: "Retiro",
+          d: "Lo que está en stock lo podés retirar. Coordinamos día y lugar por mensaje.",
+        },
+      ];
+      const FAQ = [
+        {
+          q: "¿Cómo hago un pedido?",
+          a: "Elegí tus productos, agregalos al carrito y mandame el pedido por WhatsApp o Instagram (o copialo y pegalo). Yo te confirmo todo y coordinamos el pago.",
+        },
+        {
+          q: "¿Cuánto tarda un pedido personalizado?",
+          a: "De 10 a 15 días hábiles es el tiempo que recomendamos. Dependiendo del producto,cantidad y/o tenemos stock, puede ser en la misma semana pero siempre consultá. Apenas me escribís te confirmo el tiempo estimado.",
+        },
+        {
+          q: "¿Puedo pedir un diseño propio?",
+          a: "Sí. Contame tu idea (una referencia, una frase, un nombre, un chiste que solo entienden ustedes), la diseño con vos y la llevo al producto que mejor funcione.",
+        },
+        {
+          q: "¿Cómo elijo mi talle?",
+          a: 'Cada prenda tiene su tabla de talles en el producto ("Ver tabla de talles"). Si dudás entre dos, escribime y te ayudo.',
+        },
+        {
+          q: "¿Los productos en stock se pueden elegir en otro talle o color?",
+          a: "No: son los que ya están hechos, con el talle y el color que se indican en cada uno.",
+        },
+      ];
+      $("#envios").innerHTML = ENVIOS.map(
+        (e) => `<div class="svc"><h3>${e.t}</h3><p>${e.d}</p></div>`,
+      ).join("");
+      $("#faq").innerHTML = FAQ.map(
+        (f) => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`,
+      ).join("");
+      // Botón flotante de WhatsApp: se muestra solo si cargaste tu número en WHATSAPP (arriba, en los datos de pago).
+      if (WHATSAPP) {
+        const w = $("#wafloat");
+        w.href =
+          "https://wa.me/" +
+          WHATSAPP +
+          "?text=" +
+          encodeURIComponent("Hola Jesi, quería consultar por un producto.");
+        w.hidden = false;
+      }
+      // 13) EN STOCK: si hay productos en STOCK, dibuja la sección y muestra el link del menú.
+      if (STOCK.length) {
+        $("#stockgrid").replaceChildren(...STOCK.map((p) => card(p, true)));
+        $("#stock").hidden = false;
+        $("#navstock").hidden = false;
+      }
+      show("");
+      paint();
+    </script>
+  </body>
+</html>
