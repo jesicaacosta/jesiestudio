@@ -8,7 +8,7 @@
     />
     <title>Jesi Estudio · Llevá lo que te gusta</title>
     <!-- FAVICON (iconito de la pestaña) y color de la barra del celular. Archivo: favicon.png en la misma carpeta. -->
-    <link rel="icon" type="image/png" href="avicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
     <meta name="theme-color" content="#b0496b" />
     <meta
@@ -24,7 +24,7 @@
       property="og:description"
       content="Remeras, buzos, tote bags, tazas, agendas y más. Hacé tu pedido o pedime tu diseño personalizado."
     />
-    <meta property="og:image" content="https://TU-DOMINIO.com/compartir.png" />
+    <meta property="og:image" content="https://jesiestudio.netlify.app" />
     <meta name="twitter:card" content="summary_large_image" />
     <!-- ============ INTERRUPTOR DE MANTENIMIENTO ============
      true  = la web muestra SOLO el cartel de mantenimiento.
@@ -42,8 +42,7 @@
     />
     <style>
       /* COLORES Y FUENTES de la marca.  
-   LOGO: los dos archivos tienen que estar en la MISMA CARPETA que este html.
-   logo.png = versión rosa (fondo claro). logo.png = versión crema (modo oscuro). Ambos con fondo transparente. */
+   LOGO: los dos archivos tienen que estar en la MISMA CARPETA que este html. */
       :root {
         --papel: #f4ede3;
         --rosa: #b04974;
@@ -106,7 +105,7 @@
         font-size: clamp(2rem, 5vw, 3.2rem);
       }
       a {
-        color: #ecd2cc;
+        color: var(--tinta);
         font-weight: 600;
       }
       p {
