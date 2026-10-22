@@ -51,7 +51,7 @@
         --azul: #000d31;
         --dorado: #c9a14a;
         --beige: #ecd2cc;
-        --bg: #fdf8f3;
+        --bg: #f5ebe2;
         --fg: #2a2127;
         --ac: #b0496b;
         --su: #f8e6e4;
@@ -673,6 +673,20 @@
       .nx {
         right: 8px;
       }
+/* MARCA DE AGUA: el logo sobre todas las fotos de los carruseles (tienda y ventana del producto) */
+.cw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: url("logo-claro.png") right 5% bottom 5% / 25% auto no-repeat;  opacity: 0.45;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none; /* no tapa los toques: se sigue pudiendo deslizar y abrir el producto */
+}
+/* Que las flechas del carrusel queden por encima del logo */
+.cw > button {
+  z-index: 3;
+}
 
       /* Si el producto tiene una sola foto, se esconden las flechas del carrusel */
       .car:has(img:only-child) ~ .pv,
