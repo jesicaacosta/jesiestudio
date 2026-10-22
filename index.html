@@ -66,8 +66,6 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      /* TEMA CLARO FIJO: la web se ve siempre clara (crema), aunque el celular o la compu del cliente esté en modo oscuro.
-         Si algún día querés volver a tener modo oscuro automático, avisame y lo reactivamos. */
       /* BASE: scroll suave, tipografía general y ancho máximo del contenido (.w). */
       html {
         scroll-behavior: smooth;
@@ -675,6 +673,13 @@
       .nx {
         right: 8px;
       }
+
+      /* Si el producto tiene una sola foto, se esconden las flechas del carrusel */
+      .car:has(img:only-child) ~ .pv,
+      .car:has(img:only-child) ~ .nx {
+        display: none;
+      }
+
       /* Texto, selectores y precio dentro de la tarjeta. */
       .b {
         padding: 18px;
